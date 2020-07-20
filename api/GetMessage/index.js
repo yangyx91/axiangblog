@@ -1,5 +1,6 @@
 module.exports = async function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
+   
 
     context.res = {
         body: {
@@ -18,4 +19,9 @@ module.exports = async function (context, req) {
     //         body: "Please pass a name on the query string or in the request body"
     //     };
     // }
+
+    //
+
+    
+
 };

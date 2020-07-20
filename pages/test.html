@@ -4,7 +4,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
   <title>Vanilla JavaScript App</title>
 </head>
 
@@ -16,8 +15,33 @@
 
   <script>
     (async function() {
-      let { text } = await( await fetch(`/api/message`)).json();
+      let {
+           text 
+        } = await( 
+            await fetch(`/api/message`)
+            ).json();
       document.querySelector('#name').textContent = text;
+
+
+      await fetch('https://axiangapi.us-south.cf.appdomain.cloud/WeatherForecast', {
+            method: 'Get', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            //credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            //redirect: 'follow', // manual, *follow, error
+            //referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            //body: JSON.stringify(data) // body data type must match "Content-Type" header
+  })
+    .then(
+        response => response.json()
+        )
+    .then(
+        data => console.log("fetchApiJson",data)
+        );
     }())
   </script>
 </body>
