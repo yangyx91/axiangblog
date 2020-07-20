@@ -1,207 +1,206 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <title>阿象博客</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="format-detection" content="telephone=no" />
-    <title>bootstrap仿文博页面样式</title>
-
-    <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.1.0/css/bootstrap.min.css">
+    <meta http-equiv=X-UA-Compatible content="IE=edge">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="description" content="聚焦Win10、C#、Xbox、Asp.Net/Core、Web Api" />
+    <meta name="keywords" content="Win10,Win10开发,Xbox,.Net Core,Asp.net,Api,UWP,MVC,C#" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
 </head>
-<body>
+<body style="font-size:16px">
     <nav class="navbar  navbar-fixed-top" role="navigation" style="background: #e0620d ;padding-top: 3px;height:50px;">
         <div class="container-fluid" style="background: #fff;">
             <div class="navbar-header ">
-                <span class="navbar-brand " href="#">WEIBO</span>
-
-                <button type="button" class="navbar-toggle" data-toggle="collapse"
-                        data-target="#my-navbar-collapse">
-                    <span class="sr-only">切换导航</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+                <a href="">
+                    <span class="navbar-brand ">阿象博客</span>
+                </a>
             </div>
-            <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="#热门话题#">
-                    <i class="glyphicon glyphicon-search btn_search"></i>
-                    <!--  <button type="submit" class="btn btn-default">提交</button> -->
-                </div>
+            <div class="navbar-collapse" id="my-navbar-collapse">
+                <!-- 全文搜索-->
+                <form class="navbar-form navbar-left" role="search" method="post" action="">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="#热门文章#">
+                        <i class="glyphicon glyphicon-search btn_search" type="submit"></i>
+                    </div>
 
-            </form>
-
-            <div class="collapse navbar-collapse" id="my-navbar-collapse">
-
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;Jack.C</a></li>
-
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            设置 <b class="caret"></b>
+                </form>
+                <ul class="collapse nav navbar-nav navbar-right">
+                     <li>
+                        <a href="https://axiang.azurewebsites.net" class="glyphicon glyphicon-home">
+                            首页
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">登录</a></li>
-                            <li><a href="#">注册</a></li>
-
-                        </ul>
                     </li>
-                </ul>
-
+                        <li><a href="https://axiang.azurewebsites.net/home/category?menu=Net5">&nbsp;.Net5</a></li>
+                        <li><a href="https://axiang.azurewebsites.net/home/category?menu=Win10">&nbsp;Win10</a></li>
+                        <li><a href="https://axiang.azurewebsites.net/home/category?menu=Android">&nbsp;Android</a></li>
+                        <li><a href="https://axiang.azurewebsites.net/home/category?menu=Xbox">&nbsp;Xbox</a></li>
+                        <li><a href="https://axiang.azurewebsites.net/home/category?menu=Other">&nbsp;&#x6742;&#x8C08;</a></li>
+                  </ul>
             </div>
-
-
         </div>
         <hr style="margin: 0;padding: 0;color:#222;width: 100%">
     </nav>
-
     <div class="container container_bg">
         <div class="row">
             <div class="col-sm-2"></div>
-
             <div class="col-sm-6 col-xs-12 my_edit">
-                <div class="row" id="edit_form">
-                    <span class="pull-left" style="margin:15px;">编写新鲜事</span>
-                    <span class="tips pull-right" style="margin:15px;"></span>
-                    <form role="form" style="margin-top: 50px;">
-                        <div class="form-group">
-                            <div class="col-sm-12">
-
-                                <div contenteditable="true" id="content" class="form-control "></div>
-                            </div>
-                            <div class="col-sm-12" style="margin-top: 12px;">
-                                <span class="emoji">表情</span>
-
-                                <span class="pic">图片	</span>
-                                <span>
-                                    <input type="file" name="" class="select_Img" style="display: none">
-                                    <img class="preview" src="">
-                                </span>
-
-
-                                <div class="myEmoji">
-                                    <ul id="myTab" class="nav nav-tabs">
-                                        <li class="active">
-                                            <a href="#set" data-toggle="tab">
-                                                预设
-                                            </a>
-                                        </li>
-                                        <li><a href="#hot" data-toggle="tab">热门</a></li>
-
-                                    </ul>
-                                    <div id="myTabContent" class="tab-content">
-                                        <div class="tab-pane fade in active" id="set">
-                                            <div class="emoji_1"></div>
-
-                                        </div>
-                                        <div class="tab-pane fade" id="hot">
-                                            <div class="emoji_2"></div>
-                                        </div>
-
-                                    </div>
+                <!-- 文章列表 -->
+                    <div class="row item_msg">
+                        <div class="col-sm-12 col-xs-12 message">
+                            <div class="col-sm-12 col-xs-12">
+                                <span style="font-weight: bold;"><a class="" href="">标题</a></span>
+                                <br>
+                                <small class="date" style="color:#999">Author 发布于 2020.07.20 </small>
+                                <div class="msg_content">
+                                    摘要
                                 </div>
-                                <!-- <span> <input type="file" id="selectImg" value=""></input> </span> -->
-                                <button type="button" id="send" class="btn btn-default pull-right disabled">发布</button>
+                                <div class="msg_content">
+                                    <span class="pull-left"> 归档：</span>
+                                    <span class="pull-right"><a class="text-success" href="">[阅读]</a></span>
+                                </div>
                             </div>
                         </div>
-                    </form>
-                </div>
-
-
-                <div class="row item_msg">
-                    <div class="col-sm-12 col-xs-12 message">
-                        <img src="img/icon.png" class="col-sm-2 col-xs-2" style="border-radius: 50%">
-                        <div class="col-sm-10 col-xs-10">
-                            <span style="font-weight: bold;">Jack.C</span>
-                            <br>
-                            <small class="date" style="color:#999">1分钟前</small>
-                            <div class="msg_content">
-                                happy day!
-                                <img class="mypic" src="img/bg_1.jpg">
-                            </div>
-
-                        </div>
-
                     </div>
-
-
-                </div>
-
-
+                    
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-end" style="margin-left:45%">
+                            <li class="page-item"><a class="page-link" href="">item</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
             </div>
-
-
             <div class="col-sm-3 col-xs-12 part_right">
                 <div class="row text-center inform">
-                    <img src="img/icon.png">
-                    <h4 style="font-weight: bold;">Jack.C</h4>
+                    <img class="about-photo" src="/img/author.jpg">
+                    <h4 style="font-weight: bold;">聚焦Net Core、Asp.Net</h4>
                     <div class="col-sm-12 my_inform">
                         <div class="col-sm-4 col-xs-4">
-                            <div>111</div>
-                            <div class="sort">关注</div>
-
+                            <a href="">
+                                <div class="sort">随笔</div>
+                            </a>
                         </div>
                         <div class="col-sm-4 col-xs-4">
-                            <div>111</div>
-                            <div class="sort">粉丝</div>
+                            <a href="">
+                                <div class="sort">Android</div>
+                            </a>
                         </div>
                         <div class="col-sm-4 col-xs-4">
-                            <div>111</div>
-                            <div class="sort">博客</div>
+                            <a href="">
+                                <div class="sort">Net5</div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 my_inform">
+                        <div class="col-sm-4 col-xs-4">
+                            <a href="">
+                                <div class="sort">Win10</div>
+                            </a>
+                        </div>
+                        <div class="col-sm-4 col-xs-4">
+                            <a href="">
+                                <div class="sort">Xbox</div>
+                            </a>
+                        </div>
+                        <div class="col-sm-4 col-xs-4">
+                            <a href="">
+                                <div class="sort">杂谈</div>
+                            </a>
                         </div>
                     </div>
                 </div>
                 <div class="row part_hot">
                     <div class="col-sm-12">
-                        <span class="pull-left" style="padding: 10px;font-size:16px;font-weight: bold;">热门话题</span>
-                        <span class="pull-right" style="padding: 10px;">换话题</span>
+                        <span class="pull-left" style="padding: 10px;font-size:16px;font-weight: bold;">博客日历</span>
+                        <span class="pull-right"><input class="form-control" type="date" style="width:160px" placeholder="Search"></span>
+
                     </div>
-                    <hr style="margin: 0;padding: 0;width: 100%">
-
-                    <div class="col-sm-12 item_hot">
-                        <span class="pull-left">#英雄联盟s7#</span>
-                        <span class="pull-right item_num">34.6亿</span>
-                    </div>
-
-                    <div class="col-sm-12 item_hot">
-                        <span class="pull-left">#今天霜降#</span>
-                        <span class="pull-right item_num">2.6亿</span>
-                    </div>
-
-                    <div class="col-sm-12 item_hot">
-                        <span class="pull-left">#亚洲新歌榜#</span>
-                        <span class="pull-right item_num">10.4亿</span>
-                    </div>
-
-                    <div class="col-sm-12 item_hot">
-                        <span class="pull-left">#扑通扑通少女心#</span>
-                        <span class="pull-right item_num">1.5亿</span>
-                    </div>
-
-                    <div class="col-sm-12 item_hot">
-                        <span class="pull-left">#突然开心#</span>
-                        <span class="pull-right item_num">1.1亿</span>
-                    </div>
-                    <hr style="margin: 0;padding: 0;width: 100%">
-
-                    <div class="col-sm-12 text-center" style="padding: 10px"><a href="#">查看更多</a></div>
-
                 </div>
+                <div class="row part_hot">
+                    <div class="col-sm-12">
+                        <span class="pull-left" style="padding: 10px;font-size:16px;font-weight: bold;">开发领域</span>
+                        <span class="pull-right" style="padding: 10px;">WCF、Web Api、SQL Server</span>
+                    </div>
+                </div>
+                <div class="row part_hot">
+                    <div class="col-sm-12">
+                        <span class="pull-left" style="padding: 10px;font-size:16px;font-weight: bold;">
+                            <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1651639629&site=qq&menu=yes">
+                                <img border="0" src="/img/button_111.jpg" alt="点击这里给我发消息" title="点击这里给我发消息" />
+                            </a>
+                        </span>
+                        <span class="pull-right" style="padding: 10px;">
+                            <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=5fe6c45769cd2c4d81d81adb4e7ea9c63f587e7bf559e92ca6fd8979fa29c34b">
+                                <img border="0" src="/img/group.png" alt="Win10、UWP技术交流前沿" title="Win10、UWP技术交流前沿">
+                            </a>
+                        </span>
+                    </div>
+                    <div class="col-sm-12">
+                        <span class="pull-left" style="padding: 10px;font-size:16px;font-weight: bold;"><a href="mailto:yang.yx@163.com?subject=你好，阿象" class="glyphicon glyphicon glyphicon-envelope">联系阿象</a></span>
+                    </div>
+                </div>
+                <div class="row part_hot">
+                    <div class="col-sm-12">
+                        <span class="pull-left" style="padding: 10px;font-size:16px;font-weight: bold;">Net Core项目</span>
+                        <span class="pull-right" style="padding: 10px;">
+                            <a class="text-success" href="https://dev.azure.com/axiang/axiangBlog">[Blog源码下载]</a>
+                        </span>
+                    </div>
+                </div>
+                <div class="row part_hot">
+                    <div class="col-sm-12">
+                        <span class="pull-left" style="padding: 10px;font-size:16px;font-weight: bold;">热门文章</span>
+                        <span class="pull-right" style="padding: 10px;">换一批</span>
+                    </div>
+                    <hr style="margin: 0;padding: 0;width: 100%">
 
+                    <div class="col-sm-12 item_hot">
+                        <span class="pull-left">#文章1#</span>
+                        <span class="pull-right item_num">[阅读]</span>
+                    </div>
+                    <hr style="margin: 0;padding: 0;width: 100%">
+                    <div class="col-sm-12 text-center" style="padding: 10px"><a href="#">查看更多</a></div>
+                </div>
             </div>
         </div>
-
-
     </div>
-    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.0.min.js"></script>
-    <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.1.0/bootstrap.min.js"></script>
+    <!-- footer -->
+    <footer class="container text-center">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <ul class="nav nav-pills pull-right">
+                        <!-- ./法律术语 -->
+                        <li>
+                            <p>
+                                © 2020 阿象博客.All rights reserved.运行在：Azure静态Web
+                            </p>
+                            <p>
+                                <a href="/home/privacy">隐私政策[Privacy Policy]</a>
+                            </p>
+                            <p>
+                                <a href="/home/privacy">隐私协议[Cookies]</a>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(function () {
             jQuery.ajax({
-                url: 'https://axiangapi.azurewebsites.net/v1/ApiV1/Get',
+                url: 'https://axiangfunctions.azurewebsites.net/api/Function1?name=11111',
                 type: 'Get',
                 contentType: 'application/json',
                 data: JSON.stringify(),
@@ -342,6 +341,6 @@
         })
     </script>
 
- 
+
 </body>
 </html>
