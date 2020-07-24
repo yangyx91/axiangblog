@@ -61,7 +61,7 @@
                 </span>
             </div>
             <!--文章列表-->
-            <div class="list-item" id="view" >
+            <div class="list-item" id="view">
                 <div class="item" ms-for="($index,el) in ##dataArray | orderBy(##temperatureC)">
                     <div class="layui-fluid">
                         <div class="layui-row">
@@ -132,7 +132,7 @@
                         laypage = layui.laypage,
                         $ = layui.$,
                         menu = layui.menu;
-                  
+
                     menu.init();
                 });
         });
@@ -145,13 +145,13 @@
             currentPage: 1,
             pageNumber: 1,
             pageSize: 10,
-            totalCount:10
+            totalCount: 10
         });
 
         setTimeout(function () {
             queryPagePosts();
         }, 1000);
-      
+
 
         //获取分页数据
         function queryPagePosts() {
@@ -180,7 +180,7 @@
                     console.log("对外FunctionAPI获取res", res);
                     console.log(viewModel);
                     viewModel.dataArray = res;
-                    viewModel.totalCount = res.length+30;
+                    viewModel.totalCount = res.length + 30;
                     doPageView(viewModel.totalCount, viewModel.pageSize);
                 }
                 , complete: function (data) {
@@ -193,7 +193,7 @@
         }
 
         //分页渲染页面数据
-        function doPageView(totalCount,pageSize) {
+        function doPageView(totalCount, pageSize) {
             //分页容器
             laypage.render({
                 elem: 'pageBar',
@@ -204,10 +204,10 @@
                     //console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
                     //console.log(obj.limit); //得到每页显示的条数
                     //首次不执行
-                    if (obj.curr==1) {
+                    if (obj.curr == 1) {
                         //do something
                     } else {
-                        jumpTargetPage(obj.curr,obj.limit);
+                        jumpTargetPage(obj.curr, obj.limit);
                     }
                 }
             });
@@ -222,5 +222,15 @@
             console.log("当前Post分类名称:", name);
         }
     </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-44706092-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-44706092-1');
+    </script>
+
 </body>
 </html>
