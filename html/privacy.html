@@ -1,9 +1,9 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>阿象博客</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
     <meta http-equiv=X-UA-Compatible content="IE=edge">
     <meta http-equiv="Cache-Control" content="no-transform" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
@@ -11,159 +11,152 @@
     <meta name="keywords" content="Win10,Win10开发,Xbox,.Net Core,Asp.net,Api,UWP,MVC,C#" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="/res/css/main.css">
+    <!--加载meta IE兼容文件-->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
 </head>
-<body style="font-size:16px">
-
-    <div class="container container_bg">
-        <div class="row">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-6 col-xs-12 my_edit">
-                <!-- 隐私政策 -->
-                <div class="panel panel-default">
-                    <div class="panel-footer">
-                        <a class="" href=""><h4>隐私政策</h4></a>
-                    </div>
-                    <div class="panel-body">
-
-                        <p>本网站用于个人技术分享、兴趣爱好交流、免费资源等用途。</p>
-                        <p>技术层面上配置了只读权限，用户可以放心浏览网页，不会出现表单等收集数据等形式。</p>
-                        <p>本站基于net core开发，代码也是对外开源，用户可以查看源码，检查隐私安全性</p>
-                    </div>
-                </div>
-                <nav aria-label="breadcrumb" class="panel-body">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">分类</li>
-                        <li class="breadcrumb-item active" aria-current="page"><a href="">隐私政策</a></li>
-                    </ol>
-                </nav>
-                <div class="panel-footer">
-                    <span>承诺人：阿象博客</span>
-                    <span class="pull-right"><a class="text-success" href="#top">[返回顶部]</a></span>
-                </div>
-                <!-- ./feed -->
-            </div>
+<body>
+    <div class="header">
+        <div class="menu-btn">
+            <div class="menu"></div>
         </div>
-        <div class="col-sm-3 col-xs-12 part_right">
-            <div class="row text-center inform">
-                <img class="about-photo" src="/img/author.jpg">
-                <h4 style="font-weight: bold;">聚焦Net Core、Asp.Net</h4>
-                <div class="col-sm-12 my_inform">
-                    <div class="col-sm-4 col-xs-4">
-                        <a href="">
-                            <div class="sort">随笔</div>
-                        </a>
-                    </div>
-                    <div class="col-sm-4 col-xs-4">
-                        <a href="">
-                            <div class="sort">Android</div>
-                        </a>
-                    </div>
-                    <div class="col-sm-4 col-xs-4">
-                        <a href="">
-                            <div class="sort">Net5</div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-sm-12 my_inform">
-                    <div class="col-sm-4 col-xs-4">
-                        <a href="">
-                            <div class="sort">Win10</div>
-                        </a>
-                    </div>
-                    <div class="col-sm-4 col-xs-4">
-                        <a href="">
-                            <div class="sort">Xbox</div>
-                        </a>
-                    </div>
-                    <div class="col-sm-4 col-xs-4">
-                        <a href="">
-                            <div class="sort">杂谈</div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="row part_hot">
-                <div class="col-sm-12">
-                    <span class="pull-left" style="padding: 10px;font-size:16px;font-weight: bold;">博客日历</span>
-                    <span class="pull-right"><input class="form-control" type="date" style="width:160px" placeholder="Search"></span>
+        <h1 class="logo">
+            <a href="../index.html">
+                <span>MYBLOG</span>
+                <img src="/res/img/logo.png">
+            </a>
+        </h1>
+        <div class="nav">
+            <a href="posts.html">文章</a>
+            <a href="whisper.html">微语</a>
+            <a href="leacots.html">留言</a>
+            <a href="album.html">相册</a>
+            <a href="about.html" class="active">关于</a>
+        </div>
+        <ul class="layui-nav header-down-nav">
+            <li class="layui-nav-item"><a href="posts.html" class="active">文章</a></li>
+            <li class="layui-nav-item"><a href="whisper.html">微语</a></li>
+            <li class="layui-nav-item"><a href="leacots.html">留言</a></li>
+            <li class="layui-nav-item"><a href="album.html">相册</a></li>
+            <li class="layui-nav-item"><a href="about.html" class="active">关于</a></li>
+        </ul>
+        <p class="welcome-text">
+            欢迎来到<span class="name">小明</span>的博客~
+        </p>
+    </div>
+    <div class="content whisper-content leacots-content details-content">
+        <div class="cont w1000">
+            <div class="whisper-list">
+                <div class="item-box">
+                    <div class="review-version">
+                        <div class="form-box">
+                            <div class="article-cont">
+                                <div class="title">
+                                    <h3>隐私政策</h3>
+                                    <p class="cont-info"><span class="data">2020</span><span class="types">隐私申明</span></p>
+                                </div>
+                                <p>本网站用于个人技术分享、兴趣爱好交流、免费资源等用途。</p>
+                                <p>技术层面上配置了只读权限，用户可以放心浏览网页，不会出现表单等收集数据等形式。</p>
+                                <p>本站基于net core开发，代码也是对外开源，用户可以查看源码，检查隐私安全性</p>
+                                <div class="btn-box">
+                                    <button class="layui-btn layui-btn-primary">上一篇</button>
+                                    <button class="layui-btn layui-btn-primary">下一篇</button>
+                                </div>
+                            </div>
+                            <div class="form">
+                                <form class="layui-form" action="">
+                                    <div class="layui-form-item layui-form-text">
+                                        <div class="layui-input-block">
+                                            <textarea name="desc" placeholder="既然来了，就说几句" class="layui-textarea"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <div class="layui-input-block" style="text-align: right;">
+                                            <button class="layui-btn definite">发表</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="volume">
+                            全部留言 <span>10</span>
+                        </div>
+                        <div class="list-cont">
 
+                            <div class="cont">
+                                <div class="img">
+                                    <img src="/res/img/header.png" alt="">
+                                </div>
+                                <div class="text">
+                                    <p class="tit"><span class="name">游客</span><span class="data">2020/08</span></p>
+                                    <p class="ct">留言示例！</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="row part_hot">
-                <div class="col-sm-12">
-                    <span class="pull-left" style="padding: 10px;font-size:16px;font-weight: bold;">开发领域</span>
-                    <span class="pull-right" style="padding: 10px;">WCF、Web Api、SQL Server</span>
-                </div>
-            </div>
-            <div class="row part_hot">
-                <div class="col-sm-12">
-                    <span class="pull-left" style="padding: 10px;font-size:16px;font-weight: bold;">
-                        <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1651639629&site=qq&menu=yes">
-                            <img border="0" src="/img/button_111.jpg" alt="点击这里给我发消息" title="点击这里给我发消息" />
-                        </a>
-                    </span>
-                    <span class="pull-right" style="padding: 10px;">
-                        <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=5fe6c45769cd2c4d81d81adb4e7ea9c63f587e7bf559e92ca6fd8979fa29c34b">
-                            <img border="0" src="/img/group.png" alt="Win10、UWP技术交流前沿" title="Win10、UWP技术交流前沿">
-                        </a>
-                    </span>
-                </div>
-                <div class="col-sm-12">
-                    <span class="pull-left" style="padding: 10px;font-size:16px;font-weight: bold;"><a href="mailto:yang.yx@163.com?subject=你好，阿象" class="glyphicon glyphicon glyphicon-envelope">联系阿象</a></span>
-                </div>
-            </div>
-            <div class="row part_hot">
-                <div class="col-sm-12">
-                    <span class="pull-left" style="padding: 10px;font-size:16px;font-weight: bold;">Net Core项目</span>
-                    <span class="pull-right" style="padding: 10px;">
-                        <a class="text-success" href="https://dev.azure.com/axiang/axiangBlog">[Blog源码下载]</a>
-                    </span>
-                </div>
-            </div>
-            <div class="row part_hot">
-                <div class="col-sm-12">
-                    <span class="pull-left" style="padding: 10px;font-size:16px;font-weight: bold;">热门文章</span>
-                    <span class="pull-right" style="padding: 10px;">换一批</span>
-                </div>
-                <hr style="margin: 0;padding: 0;width: 100%">
-
-                <div class="col-sm-12 item_hot">
-                    <span class="pull-left">#文章1#</span>
-                    <span class="pull-right item_num">[阅读]</span>
-                </div>
-                <hr style="margin: 0;padding: 0;width: 100%">
-                <div class="col-sm-12 text-center" style="padding: 10px"><a href="#">查看更多</a></div>
-            </div>
+            <div id="demo" style="text-align: center;"></div>
         </div>
     </div>
-
-    <!-- footer -->
-    <footer class="container text-center">
+    <script type="text/html" id="laytplCont">
+        <div class="cont">
+            <div class="img">
+                {{#  if(d.avatar){ }}
+                <img src="{{d.avatar}}" alt="">
+                {{#  } else { }}
+                <img src="/res/img/header.png" alt="">
+                {{# } }}
+            </div>
+            <div class="text">
+                <p class="tit"><span class="name">{{d.name}}</span><span class="data">2018/06/06</span></p>
+                <p class="ct">{{d.cont}}</p>
+            </div>
+        </div>
+    </script>
+    <div class="footer-wrap">
+        <div class="footer w1000">
+            <div class="qrcode">
+                <img src="/res/img/erweima.jpg">
+            </div>
+            <div class="practice-mode">
+                <img src="/res/img/down_img.jpg">
+                <div class="text">
+                    <h4 class="title">联系方式</h4>
+                    <p>
+                        <span class="WeChat">
+                            <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1651639629&site=qq&menu=yes">
+                                <img border="0" src="/res/img/button_111.jpg" alt="点击这里给我发消息" title="点击这里给我发消息" />
+                            </a>
+                        </span>
+                    </p>
+                    <p><span class="groupchat"><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=5fe6c45769cd2c4d81d81adb4e7ea9c63f587e7bf559e92ca6fd8979fa29c34b"><img border="0" src="/res/img/group.png" alt="Win10、UWP技术交流前沿" title="Win10、UWP技术交流前沿"></a></span></p>
+                    <p><span class="email"><a href="mailto:yang@axiangblog.com?subject=你好，阿象" class="glyphicon glyphicon glyphicon-envelope">:yang.#axiangblog.com(#替换@)</a></span></p>
+                </div>
+            </div>
+        </div>
         <div class="footer w1000">
             <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
                 <p style="text-align: center;">© 2020 阿象博客.All rights reserved.<span style="color: #3f2863">[Azure静态Web应用]</span></p>
             </div>
         </div>
-    </footer>
-    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
-    <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"></script>
+    </div>
+    <script type="text/javascript" src="/res/layui/layui.js"></script>
     <script type="text/javascript">
-        $(function () {
-            jQuery.ajax({
-                url: 'https://axiangfunctions.azurewebsites.net/api/Function1?name=ibm',
-                type: 'Get',
-                contentType: 'application/json',
-                data: JSON.stringify(),
-                success: function (res) {
-                    console.log("res", res);
-                }
-                , complete: function (data) {
-                    //console.log("complete", data.responseText);
-                },
-                error: function (data) {
-                    console.log("data", data);
-                }
-            })
+        layui.config({
+            base: '/res/js/util/'
+        }).use(['element', 'laypage', 'form', 'menu'], function () {
+            element = layui.element, laypage = layui.laypage, form = layui.form, menu = layui.menu;
+            laypage.render({
+                elem: 'demo'
+                , count: 70 //数据总数，从服务端得到
+            });
+            menu.init();
+            menu.submit();
         })
     </script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -175,7 +168,6 @@
 
         gtag('config', 'UA-44706092-1');
     </script>
-
 
 </body>
 </html>

@@ -32,111 +32,59 @@
             </a>
         </h1>
         <div class="nav">
-            <a href="/html/posts.html" class="active">文章</a>
+            <a href="index.html" class="active">文章</a>
             <a href="/html/whisper.html">微语</a>
             <a href="/html/leacots.html">留言</a>
             <a href="/html/album.html">相册</a>
             <a href="/html/about.html">关于</a>
-            <a href="/html/privacy.html">隐私</a>
+            <a href="/html/privacy.html">隐私政策</a>
         </div>
         <ul class="layui-nav header-down-nav">
-            <li class="layui-nav-item"><a href="/html/posts.html" class="active">文章</a></li>
+            <li class="layui-nav-item"><a href="index.html" class="active">文章</a></li>
             <li class="layui-nav-item"><a href="/html/whisper.html">微语</a></li>
             <li class="layui-nav-item"><a href="/html/leacots.html">留言</a></li>
             <li class="layui-nav-item"><a href="/html/album.html">相册</a></li>
             <li class="layui-nav-item"><a href="/html/about.html">关于</a></li>
-            <li class="layui-nav-item"><a href="/html/privacy.html">隐私</a></li>
+            <li class="layui-nav-item"><a href="/html/privacy.html">隐私政策</a></li>
         </ul>
         <p class="welcome-text">
             欢迎来到<span class="name">{{##name}}</span>的博客~
         </p>
     </div>
 
-     <div class="about-content">
-        <div class="w1000">
-            <div class="item info">
-                <div class="title">
-                    <h3>自我介绍</h3>
-                </div>
-                <div class="cont">
-                    <img src="/res/img/author.jpg">
-                    <div class="per-info">
-                        <p>
-                            <span class="name">小明</span><br />
-                            <span class="age">24岁</span><br />
-                            <span class="Career">设计师, 前端工程师</span><br />
-                            <span class="interest">爱好旅游,打游戏</span>
-                        </p>
-                    </div>
-                </div>
+    <div class="content">
+        <div class="cont w1000">
+            <div class="title">
+                <span class="layui-breadcrumb" lay-separator="|">
+                    <a href="javascript:getPostsByTagName('设计文章');" class="active">设计文章</a>
+                    <a href="javascript:getPostsByTagName('前端文章');">前端文章</a>
+                    <a href="javascript:getPostsByTagName('旅游杂记');">旅游杂记</a>
+                </span>
             </div>
-            <div class="item tool">
-                <div class="title">
-                    <h3>我的技能</h3>
-                </div>
-                <div class="layui-fluid">
-                    <div class="layui-row">
-                        <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
-                            <div class="cont-box">
-                                <img src="/res/img/postsIcon.png">
-                                <p>技术文随笔</p>
-                            </div>
-                        </div>
-                        <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
-                            <div class="cont-box">
-                                <img src="/res/img/wechatIcon.png">
-                                <p>微信号运营</p>
-                            </div>
-                        </div>
-                        <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
-                            <div class="cont-box">
-                                <img src="/res/img/devopsIcon.png">
-                                <p>Api微服务</p>
-                            </div>
-
-                        </div>
-                        <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
-                            <div class="cont-box">
-                                <img src="/res/img/cloudIcon.png">
-                                <p>BT搜索类</p>
-                            </div>                              
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item devops">
-                <div class="title">
-                    <h3>我的作品</h3>
-                </div>
-                <div class="layui-fluid">
-                    <div class="layui-row">
-                        <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
-                            <div class="cont-box">
-                                <img src="/res/img/gr_img2.jpg">
-                                <p>Layui_Blog模板二次修改</p>
-                            </div>
-                        </div>
-                        <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
-                            <div class="cont-box">
-                                <img src="/res/img/gr_img3.jpg">
-                                <p>EF Core/MongoDB增删改查</p>
-                            </div>
-                        </div>
-                        <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
-                            <div class="cont-box">
-                                <img src="/res/img/gr_img5.jpg">
-                                <p>AWS/Azure数据库</p>
-                            </div>
-                        </div>
-                        <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
-                            <div class="cont-box">
-                                <img src="/res/img/gr_img4.jpg">
-                                <p>Web Api网关层</p>
+            <!--文章列表-->
+            <div class="list-item" id="view">
+                <div class="item" ms-for="($index,el) in ##dataArray | orderBy(##temperatureC)">
+                    <div class="layui-fluid">
+                        <div class="layui-row">
+                            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                                <div class="item-cont">
+                                    <h3>{{el.summary}}<button class="layui-btn layui-btn-danger new-icon">new</button></h3>
+                                    <h5>设计文章</h5>
+                                    <p>室内设计作为一门新兴的学科，尽管还只是近数十年的事，但是人们有意识地对自己生活、生产活动的室内进行安排布置，甚至美化装饰，赋予室内环境以所祈使的气氛，却早巳从人类文明伊始的时期就已存在</p>
+                                    <p><a href="/html/details.html" class="go-icon"></a></p>
+                                    <div class="op-list">
+                                        <p class="like" style="float:left;margin-right:30px"><i class="layui-icon layui-icon-praise"></i><span>1200</span></p>
+                                        <p class="edit" style="float:left;margin-right:30px"><i class="layui-icon layui-icon-reply-fill"></i><span>1200</span></p>
+                                        <p class="off"><span>展开</span><i class="layui-icon layui-icon-down"></i></p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!--分页模块-->
+            <div id="pageBar" style="text-align: center;"></div>
         </div>
     </div>
 
