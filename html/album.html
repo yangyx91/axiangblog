@@ -128,7 +128,8 @@
 
         function GetBingImgApiResult() {
             jQuery.ajax({
-                url: 'https://axiangapi.us-south.cf.appdomain.cloud/Api/TodayBingDailyImage',
+                //url: 'https://axiangapi.us-south.cf.appdomain.cloud/Api/TodayBingDailyImage',
+                url:'https://axiangfunctions.azurewebsites.net/api/Function1?name=todayBingImg',
                 type: 'Get',
                 dataType: 'jsonp',
                 //data: JSON.stringify(),
