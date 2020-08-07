@@ -124,15 +124,15 @@
 
         setTimeout(function () {
             GetBingImgApiResult();
+            GetDatabaseName();
         }, 1000);
 
         function GetBingImgApiResult() {
             jQuery.ajax({
-                //url: 'https://axiangapi.us-south.cf.appdomain.cloud/Api/TodayBingDailyImage',
-                url:'https://axiangfunctions.azurewebsites.net/api/Function1?name=todayBingImg',
+                url: 'https://axiangapi.us-south.cf.appdomain.cloud/Api/TodayBingDailyImage',
                 type: 'Get',
-                dataType: 'jsonp',
-                //data: JSON.stringify(),
+                contentType: 'application/json',
+                data: JSON.stringify(),
                 success: function (res) {
                     console.log("对外BingAPI获取res", res);
                     console.log(viewModel);
@@ -144,6 +144,24 @@
                             viewModel.pcImgUrl = viewModel.pathDomain + viewModel.url;
                         }
                     }
+                }
+                , complete: function (data) {
+                    //console.log("complete", data.responseText);
+                },
+                error: function (data) {
+                    console.log("data", data);
+                }
+            });
+        }
+
+        function GetDatabaseName() {
+            jQuery.ajax({
+                url: 'https://axiangapi.us-south.cf.appdomain.cloud/Api/GetDatabaseName',
+                type: 'Get',
+                contentType: 'application/json',
+                data: JSON.stringify(),
+                success: function (res) {
+                    console.log("对外Database获取res", res);
                 }
                 , complete: function (data) {
                     //console.log("complete", data.responseText);
