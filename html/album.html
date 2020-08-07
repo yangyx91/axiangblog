@@ -62,11 +62,11 @@
                 <div class="layui-row layui-col-space30 space">
                     <div class="layui-col-xs12 layui-col-sm4 layui-col-md4">
                         <div class="item">
-                            <img ms-attr="{{src: ##pcImgUrl}}">
+                            <img ms-attr="{src: @pcImgUrl}">
                             <div class="cont-text">
                                 <div class="data">{{##todayDate}}</div>
-                                <p class="address"><i class="layui-icon layui-icon-location"></i><span>江西九江</span></p>
-                                <p class="briefly">{{##bingImageTitle}}</p>
+                                <p class="address"><i class="layui-icon layui-icon-location"></i><span>{{##bingImageTitle}}</span></p>
+                                <p class="briefly"><a ms-attr="{href:@pcImgUrl}">下载图片</a></p>
                             </div>
                         </div>
                     </div>
