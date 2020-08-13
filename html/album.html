@@ -140,7 +140,7 @@
                     console.log(viewModel);
                     if (res != null && res.length > 0) {
                         viewModel.bingImages = res;
-                        var todayImg = res[res.length-1];
+                        var todayImg = res[0];
                         viewModel.bingImageTitle = todayImg.title;
                         viewModel.pcImgUrl = todayImg.url;
                         viewModel.mobileImgUrl = todayImg.urlBase;
