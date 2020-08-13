@@ -19,7 +19,7 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
 </head>
-<body>
+<body ms-controller="imgListData">
     <div class="header">
         <div class="menu-btn">
             <div class="menu"></div>
@@ -49,7 +49,7 @@
         </p>
     </div>
 
-    <div class="album-content w1000" id="layer-photos-demo" class="layer-photos-demo" ms-controller="imgListData">
+    <div class="album-content w1000" id="layer-photos-demo" class="layer-photos-demo" >
         <div class="img-info">
             <img ms-attr="{src:@pcImgUrl}" alt="">
             <div class="title">
@@ -59,14 +59,14 @@
         </div>
         <div class="img-list">
             <div class="layui-fluid" style="padding:0">
-                <div class="layui-row layui-col-space30 space" ms-for="($index,el) in ##bingImages | orderBy({{el.createDate}})">>
+                <div class="layui-row layui-col-space30 space" ms-for="($index,el) in ##bingImages | orderBy(el.createDate)">>
                     <div class="layui-col-xs12 layui-col-sm4 layui-col-md4">
                         <div class="item">
                             <img ms-attr="{src: {{el.url}}}">
                             <div class="cont-text">
                                 <div class="date">{{el.createDate}}</div>
                                 <p class="address"><i class="layui-icon layui-icon-location"></i><span>{{el.title}}</span></p>
-                                <p class="briefly"><a ms-attr="{href:{{el.url}}}">下载图片</a></p>
+                                <p class="briefly"><a ms-attr="{href:el.url}" target="_blank">下载图片</a></p>
                             </div>
                         </div>
                     </div>
@@ -139,7 +139,7 @@
                     console.log(viewModel);
                     if (res != null && res.length > 0) {
                         viewModel.bingImages = res;
-                        var todayImg = res[res.length];
+                        var todayImg = res[res.length-1];
                         viewModel.bingImageTitle = todayImg.title;
                         viewModel.pcImgUrl = todayImg.url;
                         viewModel.mobileImgUrl = todayImg.urlBase;
