@@ -51,7 +51,7 @@
 
     <div class="album-content w1000" id="layer-photos-demo" class="layer-photos-demo" >
         <div class="img-info">
-            <img ms-attr="{src:@pcImgUrl}" alt="">
+            <img ms-attr="{src:@pcImgUrl}" alt="{{##bingImageTitle}}" style="width:700px;height:400px">
             <div class="title">
                 <p class="date">今日上传<span>{{##todayDate}}</span></p>
                 <p class="text">{{##bingImageTitle}}</p>
@@ -59,8 +59,8 @@
         </div>
         <div class="img-list">
             <div class="layui-fluid" style="padding:0">
-                <div class="layui-row layui-col-space30 space" ms-for="($index,el) in ##bingImages | orderBy(##orderCondition)">>
-                    <div class="layui-col-xs12 layui-col-sm4 layui-col-md4">
+                <div class="layui-row layui-col-space30 space" ms-for="($index,el) in ##bingImages | orderBy(##orderCondition,-1)">>
+                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
                         <div class="item">
                             <img ms-attr="{src:el.url}">
                             <div class="cont-text">
