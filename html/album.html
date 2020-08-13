@@ -41,32 +41,32 @@
             <li class="layui-nav-item"><a href="posts.html">文章</a></li>
             <li class="layui-nav-item"><a href="whisper.html">微语</a></li>
             <li class="layui-nav-item"><a href="leacots.html">留言</a></li>
-            <li class="layui-nav-item"><a href="album.html" class="active">相册</a></li>
+            <li class="layui-nav-item"><a href="album.html" class="active">必应美图</a></li>
             <li class="layui-nav-item"><a href="about.html">关于</a></li>
         </ul>
         <p class="welcome-text">
-            欢迎来到<span class="name">小明</span>的博客~
+            欢迎来到<span class="name">{{##name}}</span>的博客~
         </p>
     </div>
 
     <div class="album-content w1000" id="layer-photos-demo" class="layer-photos-demo" ms-controller="imgListData">
         <div class="img-info">
-            <img src="/res/img/xc_img1.jpg" alt="">
+            <img ms-attr="{src:@pcImgUrl}" alt="">
             <div class="title">
-                <p class="data">今日上传<span>2018/10/10</span></p>
-                <p class="text">观赏最美的土耳其的日</p>
+                <p class="date">今日上传<span>{{##todayDate}}</span></p>
+                <p class="text">{{##bingImageTitle}}</p>
             </div>
         </div>
         <div class="img-list">
             <div class="layui-fluid" style="padding:0">
-                <div class="layui-row layui-col-space30 space">
+                <div class="layui-row layui-col-space30 space" ms-for="($index,el) in ##bingImages | orderBy({{el.createDate}})">>
                     <div class="layui-col-xs12 layui-col-sm4 layui-col-md4">
                         <div class="item">
-                            <img ms-attr="{src: @pcImgUrl}">
+                            <img ms-attr="{src: {{el.url}}}">
                             <div class="cont-text">
-                                <div class="data">{{##todayDate}}</div>
-                                <p class="address"><i class="layui-icon layui-icon-location"></i><span>{{##bingImageTitle}}</span></p>
-                                <p class="briefly"><a ms-attr="{href:@pcImgUrl}">下载图片</a></p>
+                                <div class="date">{{el.createDate}}</div>
+                                <p class="address"><i class="layui-icon layui-icon-location"></i><span>{{el.title}}</span></p>
+                                <p class="briefly"><a ms-attr="{href:{{el.url}}}">下载图片</a></p>
                             </div>
                         </div>
                     </div>
@@ -130,20 +130,25 @@
         function GetBingImgApiResult() {
             jQuery.ajax({
                 //url: 'https://axiangapi.azurewebsites.net/v1/ApiV1/TodayBingDailyImage',
-                url: 'https://axiangapi.us-south.cf.appdomain.cloud/Api/TodayBingDailyImage',
+                url: 'https://axiangapi.us-south.cf.appdomain.cloud/Api/GetBingImgs',
                 type: 'Get',
                 contentType: 'application/json',
                 data: JSON.stringify(),
                 success: function (res) {
                     console.log("对外BingAPI获取res", res);
                     console.log(viewModel);
-                    if (res!=null&& res.images!=null) {
-                        var imagesArray = res.images;
-                        if (imagesArray != null && imagesArray.length > 0) {
-                            var imgObj = imagesArray[0];
-                            viewModel.bingImageTitle = imgObj.copyright;
-                            viewModel.pcImgUrl = viewModel.pathDomain + imgObj.url;
-                        }
+                    if (res != null && res.length > 0) {
+                        viewModel.bingImages = res;
+                        var todayImg = res[res.length];
+                        viewModel.bingImageTitle = todayImg.title;
+                        viewModel.pcImgUrl = todayImg.url;
+                        viewModel.mobileImgUrl = todayImg.urlBase;
+                        viewModel.todayDate = todayImg.createDate;
+
+                        laypage.render({
+                            elem: 'demo'
+                            , count: res.length //数据总数，从服务端得到
+                        });
                     }
                 }
                 , complete: function (data) {
