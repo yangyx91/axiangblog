@@ -39,6 +39,7 @@
             <a href="/html/about.html">关于</a>
             <a href="/html/privacy.html">隐私</a>
         </div>
+
         <ul class="layui-nav header-down-nav">
             <li class="layui-nav-item"><a href="/html/posts.html" class="active">随笔</a></li>
             <li class="layui-nav-item"><a href="/html/whisper.html">微语</a></li>
@@ -50,6 +51,32 @@
         <p class="welcome-text">
             欢迎来到<span class="name">{{##name}}</span>的博客~
         </p>
+    </div>
+    <div class="nav" id="weather-v2-plugin-simple" style="width:100px;">
+        <script>
+            WIDGET = {
+                CONFIG: {
+                    "modules": "01234",
+                    "background": 1,
+                    "tmpColor": "FFFFFF",
+                    "tmpSize": 16,
+                    "cityColor": "FFFFFF",
+                    "citySize": 16,
+                    "aqiSize": 16,
+                    "weatherIconSize": 24,
+                    "alertIconSize": 18,
+                    "padding": "10px 10px 10px 10px",
+                    "shadow": "1",
+                    "language": "zh",
+                    "borderRadius": 5,
+                    "fixed": "false",
+                    "vertical": "middle",
+                    "horizontal": "center",
+                    "key": "UZXiJpyiBU"
+                }
+            }
+        </script>
+        <script src="https://apip.weatherdt.com/simple/static/js/weather-simple-common.js?v=2.0"></script>
     </div>
 
      <div class="about-content">
