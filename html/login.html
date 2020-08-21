@@ -183,7 +183,7 @@
                 console.log('id_token acquired at: ' + new Date().toString());
                 if (msalClient.getAccount()) {
                     viewModel.userName = msalClient.getAccount().name;
-                    viewModel.guest = userName + ',';
+                    viewModel.guest = viewModel.userName + ',';
                     viewModel.userEmail = msalClient.getAccount().userName;
                     viewModel.uid = msalClient.getAccount().accountIdentifier;
                 }
