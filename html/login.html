@@ -67,7 +67,10 @@
                                     <p style="padding: 10px 0; color: #5FB878;">用户标识：{{##uid}}</p>
 
                                     <div class="fly-sns" data-user="">
-                                        <a href="mailto:yang@axiangblog.com?subject=你好，阿象" class="layui-btn layui-btn-primary fly-imActive" data-type="addFriend">联系方式</a>
+                                        <a href="mailto:yang@axiangblog.com?subject=你好，阿象" class="layui-btn layui-btn-primary fly-imActive" data-type="">联系方式</a>
+                                    </div>
+                                    <div class ="fly-sns" data-user="">
+                                        <a href="JavaScript:callAccessToken()" class="layui-btn layui-btn-primary fly-imActive" data-type="">Call AccessToken</a>
                                     </div>
                                 </div>
                             </div>
@@ -100,7 +103,8 @@
     <!-- Graph SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@microsoft/microsoft-graph-client/lib/graph-js-sdk.js" crossorigin="anonymous"></script>
     <script type="text/javascript">
-
+        var access_token;
+        var id_Token;
         var viewModel = avalon.define({
             $id: "postListData",
             name: "我",
@@ -153,6 +157,15 @@
             ]
         }
 
+        const accessTokenRequest = {
+            scopes: [
+                'openid',
+                'profile',
+                'user.read.all'
+                //'calendars.read'
+            ]
+        }
+
         //Auth
 
         // Create the main MSAL instance
@@ -179,8 +192,16 @@
         async function signIn() {
             // Login
             try {
-                await msalClient.loginPopup(loginRequest);
-                console.log('id_token acquired at: ' + new Date().toString());
+                await msalClient.loginPopup(loginRequest)
+                    .then(function (loginResponse) {
+                        //login success
+                        let idToken = loginResponse.idToken;
+                        console.log('id_token acquired at: ' + new Date().toString());
+                }).catch(function (error) {
+                       //login failure
+                       console.log(error);
+                });
+
                 if (msalClient.getAccount()) {
                     viewModel.userName = msalClient.getAccount().name;
                     viewModel.guest = userName + ',';
@@ -193,6 +214,36 @@
             }
         }
 
+        async function callAccessToken() {
+            //Call AccessToken
+            try {
+                await msalClient.acquireTokenSilent(accessTokenRequest).then(function (accessTokenResponse) {
+                    // Acquire token silent success
+                    // Call API with token
+                    let accessToken = accessTokenResponse.accessToken;
+                    console.log(accessTokenResponse);
+                    access_token = accessToken;
+                    if (access_token != null && access_token != '') {
+                        callWebApi(access_token);
+                    }
+                }).catch(function (error) {
+                    //Acquire token silent failure, and send an interactive request
+                    if (error.errorMessage.indexOf("interaction_required") !== -1) {
+                        userAgentApplication.acquireTokenPopup(accessTokenRequest).then(function (accessTokenResponse) {
+                            // Acquire token interactive success
+                        }).catch(function (error) {
+                            // Acquire token interactive failure
+                            console.log(error);
+                        });
+                    }
+                    console.log(error);
+                });
+
+            } catch (error) {
+
+            }
+            
+        }
 
         function signOut() {
             msalClient.logout();
@@ -212,6 +263,31 @@
                 day = "0" + day;
             }
             return (year + "-" + month + "-" + day);
+        }
+
+        function callWebApi(access_token) {
+            var headers = new Headers();
+            var bearer = "Bearer " + access_token;
+            headers.append("Authorization", bearer);
+            var options = {
+                method: "GET",
+                headers: headers
+            };
+            var graphEndpoint = "https://graph.microsoft.com/v1.0/me";
+
+            fetch(graphEndpoint, options)
+                .then(function (response) {
+                    //do something with response  
+
+                    if (response.status == 200) {
+                        var data = response.json();
+                        data.then(function (userinfo) {
+                            var printResponse = JSON.stringify(userinfo)
+                            //Print the JSON string                        
+                            console.log(printResponse);
+                        })
+                    }
+                });  
         }
 
     </script>
