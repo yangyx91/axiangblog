@@ -217,15 +217,20 @@
         async function callAccessToken() {
             //Call AccessToken
             try {
-                await msalClient.loginPopup(loginRequest)
-                    .then(function (loginResponse) {
-                        //login success
-                        let idToken = loginResponse.idToken;
-                        console.log('id_token acquired at: ' + new Date().toString());
-
-                        await msalClient.acquireTokenSilent(accessTokenRequest).then(function (accessTokenResponse) {
-                            // Acquire token silent success
-                            // Call API with token
+                await msalClient.acquireTokenSilent(accessTokenRequest).then(function (accessTokenResponse) {
+                    // Acquire token silent success
+                    // Call API with token
+                    let accessToken = accessTokenResponse.accessToken;
+                    console.log(accessTokenResponse);
+                    access_token = accessToken;
+                    if (access_token != null && access_token != '') {
+                        callWebApi(access_token);
+                    }
+                }).catch(function (error) {
+                    //Acquire token silent failure, and send an interactive request
+                    //if (error.errorMessage.indexOf("interaction_required") !== -1) {
+                        userAgentApplication.acquireTokenPopup(accessTokenRequest).then(function (accessTokenResponse) {
+                            // Acquire token interactive success
                             let accessToken = accessTokenResponse.accessToken;
                             console.log(accessTokenResponse);
                             access_token = accessToken;
@@ -233,22 +238,12 @@
                                 callWebApi(access_token);
                             }
                         }).catch(function (error) {
-                            //Acquire token silent failure, and send an interactive request
-                            if (error.errorMessage.indexOf("interaction_required") !== -1) {
-                                userAgentApplication.acquireTokenPopup(accessTokenRequest).then(function (accessTokenResponse) {
-                                    // Acquire token interactive success
-                                }).catch(function (error) {
-                                    // Acquire token interactive failure
-                                    console.log(error);
-                                });
-                            }
+                            // Acquire token interactive failure
                             console.log(error);
                         });
-
-                    }).catch(function (error) {
-                        //login failure
-                        console.log(error);
-                    });
+                   // }
+                    console.log(error);
+                });
 
             } catch (error) {
 
