@@ -69,8 +69,14 @@
                                     <div class="fly-sns" data-user="">
                                         <a href="mailto:yang@axiangblog.com?subject=你好，阿象" class="layui-btn layui-btn-primary fly-imActive" data-type="">联系方式</a>
                                     </div>
-                                    <div class ="fly-sns" data-user="">
+                                    <div class="fly-sns" data-user="">
                                         <a href="JavaScript:callAccessToken()" class="layui-btn layui-btn-primary fly-imActive" data-type="">Call AccessToken</a>
+                                    </div>
+                                    <div class="fly-sns" data-user="">
+                                        <a href="JavaScript:sendEmail()" class="layui-btn layui-btn-primary fly-imActive" data-type="">Send Email</a>
+                                    </div>
+                                    <div class="fly-sns" data-user="">
+                                        <a href="JavaScript:signOut()" class="layui-btn layui-btn-primary fly-imActive" data-type="">Call SignOut</a>
                                     </div>
                                 </div>
                             </div>
@@ -176,18 +182,7 @@
             // avoid duplicate code execution on page load in case of iframe and Popup window.
         }
 
-        //graph
-
-        // Create an options object with the same scopes from the login
-        const options =
-            new MicrosoftGraph.MSALAuthenticationProviderOptions([
-                'user.read.all'
-            ]);
-        // Create an authentication provider for the implicit flow
-        const authProvider =
-            new MicrosoftGraph.ImplicitMSALAuthenticationProvider(msalClient, options);
-        // Initialize the Graph client
-        const graphClient = MicrosoftGraph.Client.initWithMiddleware({ authProvider });
+        
 
         async function signIn() {
             // Login
@@ -228,6 +223,7 @@
                     }
                 }).catch(function (error) {
                     //Acquire token silent failure, and send an interactive request
+                    console.log(error);
                     //if (error.errorMessage.indexOf("interaction_required") !== -1) {
                         userAgentApplication.acquireTokenPopup(accessTokenRequest).then(function (accessTokenResponse) {
                             // Acquire token interactive success
@@ -251,26 +247,7 @@
             
         }
 
-        function signOut() {
-            msalClient.logout();
-        }
-
-
-
-        function getDate() {
-            var date = new Date();
-            var year = date.getFullYear();
-            var month = date.getMonth() + 1;
-            var day = date.getDate();
-            if (month<10) {
-                month = "0" + month;
-            }
-            if (day<10) {
-                day = "0" + day;
-            }
-            return (year + "-" + month + "-" + day);
-        }
-
+        // call rest api
         function callWebApi(access_token) {
             var headers = new Headers();
             var bearer = "Bearer " + access_token;
@@ -288,12 +265,74 @@
                     if (response.status == 200) {
                         var data = response.json();
                         data.then(function (userinfo) {
-                            var printResponse = JSON.stringify(userinfo)
                             //Print the JSON string                        
-                            console.log(printResponse);
+                            console.log(userinfo);
                         })
                     }
-                });  
+                });
+        }
+
+        //graph
+
+        // Create an options object with the same scopes from the login
+        const options =
+            new MicrosoftGraph.MSALAuthenticationProviderOptions([
+                'user.read.all','mail.send'
+            ]);
+        // Create an authentication provider for the implicit flow
+        const authProvider =
+            new MicrosoftGraph.ImplicitMSALAuthenticationProvider(msalClient, options);
+        // Initialize the Graph client
+        const graphClient = MicrosoftGraph.Client.initWithMiddleware({ authProvider });
+
+        function sendEmail() {
+
+            const sendMail = {
+                message: {
+                    subject: "JS调用邮件发送服务",
+                    body: {
+                        contentType: "HTML",
+                        content: "调用了microsoft graph rest api 1.0邮件接口服务"
+                    },
+                    toRecipients: [
+                        {
+                            emailAddress: {
+                                address: "yang.yx91@live.cn"
+                            }
+                        }
+                    ],
+                    ccRecipients: [
+                        {
+                            emailAddress: {
+                                address: "yang@axiangblog.com"
+                            }
+                        }
+                    ]
+                },
+                saveToSentItems: "false"
+            };
+
+            let res = await graphClient.api('/me/sendMail')
+                .post(sendMail);
+            console.log(res);
+        }
+
+        function signOut() {
+            msalClient.logout();
+        }
+
+        function getDate() {
+            var date = new Date();
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var day = date.getDate();
+            if (month < 10) {
+                month = "0" + month;
+            }
+            if (day < 10) {
+                day = "0" + day;
+            }
+            return (year + "-" + month + "-" + day);
         }
 
     </script>
