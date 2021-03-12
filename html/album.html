@@ -69,11 +69,11 @@
                 <div class="layui-row layui-col-space30 space" ms-for="($index,el) in ##bingImages | orderBy(##orderCondition,-1)">>
                     <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
                         <div class="item">
-                            <img ms-attr="{src:el.url}">
+                            <img ms-attr="{src:el.Url}">
                             <div class="cont-text">
-                                <div class="date">{{el.createDate}}</div>
-                                <p class="address"><i class="layui-icon layui-icon-location"></i><span>{{el.title}}</span></p>
-                                <p class="briefly"><a ms-attr="{href:el.url}" target="_blank">下载图片</a></p>
+                                <div class="date">{{el.CreateDate}}</div>
+                                <p class="address"><i class="layui-icon layui-icon-location"></i><span>{{el.Title}}</span></p>
+                                <p class="briefly"><a ms-attr="{href:el.Url}" target="_blank">下载图片</a></p>
                             </div>
                         </div>
                     </div>
@@ -138,24 +138,24 @@
         function GetBingImgApiResult() {
             jQuery.ajax({
                 //url: 'https://axiangapi.azurewebsites.net/v1/ApiV1/TodayBingDailyImage',
-                url: 'https://axiangapi.us-south.cf.appdomain.cloud/Api/GetBingImgs',
-                type: 'Get',
+                url: 'https://openapi.axiangblog.com/getBingImgs/v1/',
+                type: 'Post',
                 contentType: 'application/json',
-                data: JSON.stringify(),
+                data: JSON.stringify({"page":1,"pageSize":50}),
                 success: function (res) {
                     console.log("对外BingAPI获取res", res);
                     console.log(viewModel);
-                    if (res != null && res.length > 0) {
-                        viewModel.bingImages = res;
-                        var todayImg = res[0];
-                        viewModel.bingImageTitle = todayImg.title;
-                        viewModel.pcImgUrl = todayImg.url;
-                        viewModel.mobileImgUrl = todayImg.urlBase;
-                        viewModel.todayDate = todayImg.createDate;
+                    if (res != null && res.data.length > 0) {
+                        viewModel.bingImages = res.data;
+                        var todayImg = res.data[0];
+                        viewModel.bingImageTitle = todayImg.Title;
+                        viewModel.pcImgUrl = todayImg.Url;
+                        viewModel.mobileImgUrl = todayImg.UrlBase;
+                        viewModel.todayDate = todayImg.CreateDate;
 
                         laypage.render({
                             elem: 'demo'
-                            , count: res.length //数据总数，从服务端得到
+                            , count: res.data.length //数据总数，从服务端得到
                         });
                     }
                 }
