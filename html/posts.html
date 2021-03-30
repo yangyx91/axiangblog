@@ -18,7 +18,6 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
-    <script data-ad-client="ca-pub-3719741560647745" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 <body ms-controller="postListData">
     <div class="header">
@@ -56,9 +55,9 @@
         <div class="cont w1000">
             <div class="title">
                 <span class="layui-breadcrumb" lay-separator="|">
-                    <a href="javascript:getPostsByTagName('设计文章');" class="active">设计文章</a>
-                    <a href="javascript:getPostsByTagName('前端文章');">前端文章</a>
-                    <a href="javascript:getPostsByTagName('旅游杂记');">旅游杂记</a>
+                    <a href="javascript:getPostsByTagName('云开发');" class="active">云开发</a>
+                    <a href="javascript:getPostsByTagName('酷软');">酷软</a>
+                    <a href="javascript:getPostsByTagName('游戏');">游戏</a>
                 </span>
             </div>
             <!--文章列表-->
@@ -68,10 +67,12 @@
                         <div class="layui-row">
                             <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
                                 <div class="item-cont">
-                                    <h3>{{el.summary}}<button class="layui-btn layui-btn-danger new-icon">new</button></h3>
-                                    <h5>设计文章</h5>
-                                    <p>室内设计作为一门新兴的学科，尽管还只是近数十年的事，但是人们有意识地对自己生活、生产活动的室内进行安排布置，甚至美化装饰，赋予室内环境以所祈使的气氛，却早巳从人类文明伊始的时期就已存在</p>
-                                    <p><a href="/html/details.html" class="go-icon"></a></p>
+                                    <img ms-attr="{src:el.Thumbnail}">
+                                    <h3>{{el.Title}}<button class="layui-btn layui-btn-danger new-icon">new</button></h3>
+                                    <h5>{{el.PostType}}</h5>
+                                    <p>{{el.Description}}</p>
+                                    <!--<p><a href="/html/details.html" class="go-icon"></a></p>-->
+                                    <p><a ms-attr="{href:el.PostUrl,target:_blank}" class="go-icon"></a></p>
                                     <div class="op-list">
                                         <p class="like" style="float:left;margin-right:30px"><i class="layui-icon layui-icon-praise"></i><span>1200</span></p>
                                         <p class="edit" style="float:left;margin-right:30px"><i class="layui-icon layui-icon-reply-fill"></i><span>1200</span></p>
@@ -108,19 +109,6 @@
                     <p><span class="email"><a href="mailto:yang@axiangblog.com?subject=你好，阿象" class="glyphicon glyphicon glyphicon-envelope">:yang.#axiangblog.com(#替换@)</a></span></p>
                 </div>
             </div>
-        </div>
-        <div class="footer w1000">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <!-- FooterAd -->
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-3719741560647745"
-                 data-ad-slot="8747165358"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
         </div>
         <div class="footer w1000">
             <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
@@ -169,32 +157,19 @@
 
         //获取分页数据
         function queryPagePosts() {
-            //jQuery.ajax({
-            //    url: 'https://axiangapi.azurewebsites.net/v1/ApiV1/Get',
-            //    type: 'Get',
-            //    contentType: 'application/json',
-            //    data: JSON.stringify(),
-            //    success: function (res) {
-            //        console.log("对外API获取res", res);
-            //    }
-            //    , complete: function (data) {
-            //        //console.log("complete", data.responseText);
-            //    },
-            //    error: function (data) {
-            //        console.log("data", data);
-            //    }
-            //});
-
             jQuery.ajax({
-                url: 'https://axiangfunctions.azurewebsites.net/api/Function1?name=ibm',
-                type: 'Get',
+                url: 'https://openapi.axiangblog.com/getWxPosts/v1/',
+                type: 'Post',
                 contentType: 'application/json',
-                data: JSON.stringify(),
+                data: JSON.stringify({
+                    page: viewModel.pageNumber,
+                    pageSize: viewModel.pageSize
+                }),
                 success: function (res) {
                     console.log("对外FunctionAPI获取res", res);
                     console.log(viewModel);
-                    viewModel.dataArray = res;
-                    viewModel.totalCount = res.length + 30;
+                    viewModel.dataArray = res.data;
+                    viewModel.totalCount = res.affectedDocs;
                     doPageView(viewModel.totalCount, viewModel.pageSize);
                 }
                 , complete: function (data) {
@@ -229,6 +204,8 @@
 
         //页面跳转
         function jumpTargetPage(pageNumber, pageSize) {
+            viewModel.pageNumber = pageNumber;
+            viewModel.pageSize = pageSize;
             console.log(pageNumber, pageSize);
         }
 
@@ -236,15 +213,5 @@
             console.log("当前Post分类名称:", name);
         }
     </script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-44706092-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'UA-44706092-1');
-    </script>
-
 </body>
 </html>

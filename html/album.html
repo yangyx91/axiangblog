@@ -137,7 +137,6 @@
 
         function GetBingImgApiResult() {
             jQuery.ajax({
-                //url: 'https://axiangapi.azurewebsites.net/v1/ApiV1/TodayBingDailyImage',
                 url: 'https://openapi.axiangblog.com/getBingImgs/v1/',
                 type: 'Post',
                 contentType: 'application/json',
@@ -167,34 +166,6 @@
                 }
             });
         }
-
-        function GetDatabaseName() {
-            jQuery.ajax({
-                url: 'https://axiangapi.us-south.cf.appdomain.cloud/Api/GetDatabaseName',
-                type: 'Get',
-                contentType: 'application/json',
-                data: JSON.stringify(),
-                success: function (res) {
-                    console.log("对外Database获取res", res);
-                }
-                , complete: function (data) {
-                    //console.log("complete", data.responseText);
-                },
-                error: function (data) {
-                    console.log("data", data);
-                }
-            });
-        }
     </script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-44706092-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'UA-44706092-1');
-    </script>
-
 </body>
 </html>
