@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>阿象博客</title>
+    <title>阿象博客—文章</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv=X-UA-Compatible content="IE=edge">
     <meta http-equiv="Cache-Control" content="no-transform" />
@@ -31,7 +31,7 @@
             </a>
         </h1>
         <div class="nav">
-            <a href="index.html" class="active">文章</a>
+            <a href="../index.html" class="active">文章</a>
             <a href="/html/whisper.html">微语</a>
             <a href="/html/leacots.html">留言</a>
             <a href="/html/album.html">相册</a>
@@ -51,7 +51,7 @@
         </p>
     </div>
 
-    <div class="content">
+    <div class="content whisper-content">
         <div class="cont w1000">
             <div class="title">
                 <span class="layui-breadcrumb" lay-separator="|">
@@ -61,22 +61,22 @@
                 </span>
             </div>
             <!--文章列表-->
-            <div class="list-item" id="view">
-                <div class="item" ms-for="($index,el) in ##dataArray | orderBy(##temperatureC)">
-                    <div class="layui-fluid">
-                        <div class="layui-row">
-                            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                                <div class="item-cont">
-                                    <img ms-attr="{src:el.Thumbnail}">
-                                    <h3>{{el.Title}}<button class="layui-btn layui-btn-danger new-icon">new</button></h3>
-                                    <h5>{{el.PostType}}</h5>
-                                    <p>{{el.Description}}</p>
-                                    <!--<p><a href="/html/details.html" class="go-icon"></a></p>-->
-                                    <p><a ms-attr="{href:el.PostUrl,target:_blank}" class="go-icon"></a></p>
+            <div class="whisper-list" id="view">
+                <div class="item-box">
+                    <div class="item" ms-for="($index,el) in ##dataArray | orderBy(##temperatureC)">
+                        <div class="layui-fluid">
+                            <div class="layui-row">
+                                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                                    <div class="whisper-title">
+                                        <i class="layui-icon layui-icon-date"></i><span class="hour">{{el.Title}}</span><span class="date">{{el.PostDate}}</span>
+                                    </div>
+                                    <p class="text-cont">{{el.Description}}</p>
+                                    <div class="img-box"><img ms-attr="{src:el.Thumbnail}"></div>
+                                    <p class="text-cont">{{el.PostType}}</p>
                                     <div class="op-list">
-                                        <p class="like" style="float:left;margin-right:30px"><i class="layui-icon layui-icon-praise"></i><span>1200</span></p>
-                                        <p class="edit" style="float:left;margin-right:30px"><i class="layui-icon layui-icon-reply-fill"></i><span>1200</span></p>
-                                        <p class="off"><span>展开</span><i class="layui-icon layui-icon-down"></i></p>
+                                        <p class="like"><i class="layui-icon layui-icon-praise"></i><span>1200</span></p>
+                                        <p class="edit"><i class="layui-icon layui-icon-reply-fill"></i><span>1200</span></p>
+                                        <p class="off"><span><a ms-attr="{href:el.PostUrl,target:_blank}" class="go-icon">Read More</a></span><i class="layui-icon layui-icon-down"></i></p>
                                     </div>
                                 </div>
                             </div>
