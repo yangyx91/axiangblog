@@ -13,13 +13,6 @@
     <link rel="stylesheet" href="/res/css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/res/layui/css/layui.css">
     <link rel="stylesheet" type="text/css" href="/res/css/main.css">
-    <script type="text/javascript">
-        (function (c, l, a, r, i, t, y) {
-            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
-            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
-            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
-        })(window, document, "clarity", "script", "69450se9ra");
-    </script>
 </head>
 <body ms-controller="postListData">
     <div class="header">
@@ -33,19 +26,19 @@
             </a>
         </h1>
         <div class="nav">
-            <a href="index.html" class="active">文章</a>
-            <a href="/html/whisper.html">微语</a>
-            <a href="/html/leacots.html">留言</a>
-            <a href="/html/album.html">相册</a>
-            <a href="/html/about.html">关于</a>
+            <a href="posts.html" class="active">文章</a>
+            <a href="whisper.html">微语</a>
+            <a href="leacots.html">留言</a>
+            <a href="album.html">相册</a>
+            <a href="about.html">关于</a>
             <a href="JavaScript:signIn()">登陆</a>
         </div>
         <ul class="layui-nav header-down-nav">
-            <li class="layui-nav-item"><a href="index.html" class="active">文章</a></li>
-            <li class="layui-nav-item"><a href="/html/whisper.html">微语</a></li>
-            <li class="layui-nav-item"><a href="/html/leacots.html">留言</a></li>
-            <li class="layui-nav-item"><a href="/html/album.html">相册</a></li>
-            <li class="layui-nav-item"><a href="/html/about.html">关于</a></li>
+            <li class="layui-nav-item"><a href="posts.html" class="active">文章</a></li>
+            <li class="layui-nav-item"><a href="whisper.html">微语</a></li>
+            <li class="layui-nav-item"><a href="leacots.html">留言</a></li>
+            <li class="layui-nav-item"><a href="album.html">相册</a></li>
+            <li class="layui-nav-item"><a href="about.html">关于</a></li>
             <li class="layui-nav-item"> <a class="iconfont icon-touxiang layui-hide-xs icon-qq" href="JavaScript:signIn()"></a></li>
         </ul>
         <p class="welcome-text">
@@ -61,7 +54,7 @@
                         <div class="list-cont">
                             <div class="cont">
                                 <div class="img">
-                                    <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="">
+                                    <img src="/res/img/author.jpg" alt="">
                                 </div>
                                 <div class="text" style="margin-left:100px">
                                     <h1>
@@ -73,7 +66,7 @@
                                     <p style="padding: 10px 0; color: #5FB878;">用户标识：{{##uid}}</p>
 
                                     <div class="fly-sns" data-user="">
-                                        <a href="mailto:yang@axiangblog.com?subject=你好，阿象" class="layui-btn layui-btn-primary fly-imActive" data-type="">联系方式</a>
+                                        <a href="mailto:yang@axiangblog.cn?subject=你好，阿象" class="layui-btn layui-btn-primary fly-imActive" data-type="">联系方式</a>
                                     </div>
                                     <div class="fly-sns" data-user="">
                                         <a href="JavaScript:callAccessToken()" class="layui-btn layui-btn-primary fly-imActive" data-type="">Call AccessToken</a>
@@ -151,7 +144,7 @@
         const msalConfig = {
             auth: {
                 clientId: '9463ab2b-f1cf-4c42-be7c-f87b12871834',
-                redirectUri: 'https://www.axiangblog.com/html/login.html'
+                redirectUri: 'https://www.axiangblog.cn/html/login.html'
             },
             cache: {
                 cacheLocation: "sessionStorage",
@@ -312,7 +305,7 @@
                     ccRecipients: [
                         {
                             emailAddress: {
-                                address: "yang@axiangblog.com"
+                                address: "yang@axiangblog.cn"
                             }
                         }
                     ]
