@@ -328,3 +328,4 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+/.jekyll-cache/Jekyll/Cache/Jekyll--Converters--Markdown

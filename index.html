@@ -1,337 +1,127 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>杨云翔的个人博客</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv=X-UA-Compatible content="IE=edge">
-    <meta http-equiv="Cache-Control" content="no-transform" />
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <meta name="description" content="聚焦Win10、C#、Xbox、Asp.Net/Core、Web Api" />
-    <meta name="keywords" content="Win10,Win10开发,Xbox,.Net Core,Asp.net,Api,UWP,MVC,C#" />
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="/res/css/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/res/layui/css/layui.css">
-    <link rel="stylesheet" type="text/css" href="/res/css/main.css">
-    <!--加载meta IE兼容文件-->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
-    <script type="text/javascript">
-        (function (c, l, a, r, i, t, y) {
-            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
-            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
-            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
-        })(window, document, "clarity", "script", "69450se9ra");
-    </script>
-</head>
-<body ms-controller="postListData">
-    <div class="header">
-        <div class="menu-btn">
-            <div class="menu"></div>
-        </div>
-        <h1 class="logo">
-            <a href="index.html">
-                <span>MYBLOG</span>
-                <img src="/res/img/logo.png">
-            </a>
-        </h1>
-        <div class="nav">
-            <a href="/html/posts.html" class="active">文章</a>
-            <a href="/html/whisper.html">微语</a>
-            <a href="/html/leacots.html">留言</a>
-            <a href="/html/album.html">必应美图</a>
-            <a href="/html/about.html">关于</a>
-            <a href="/html/privacy.html">隐私</a>
-			<a href="/html/editormd.html">MarkDown</a>
-        </div>
+---
+# Feel free to add content and custom Front Matter to this file.
+# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
-        <ul class="layui-nav header-down-nav">
-            <li class="layui-nav-item"><a href="/html/posts.html" class="active">随笔</a></li>
-            <li class="layui-nav-item"><a href="/html/whisper.html">微语</a></li>
-            <li class="layui-nav-item"><a href="/html/leacots.html">给我留言</a></li>
-            <li class="layui-nav-item"><a href="/html/album.html">必应美图</a></li>
-            <li class="layui-nav-item"><a href="/html/about.html">关于我</a></li>
-            <li class="layui-nav-item"><a href="/html/privacy.html">隐私政策</a></li>
-			<li class="layui-nav-item"><<a href="/html/editormd.html">MarkDown</a></li>
-        </ul>
-        <p class="welcome-text">
-            欢迎来到<span class="name">{{##name}}</span>的博客~
-        </p>
-    </div>
-    <div class="nav" id="weather-v2-plugin-simple" style="width:100px;">
-        <script>
-            WIDGET = {
-                CONFIG: {
-                    "modules": "01234",
-                    "background": 1,
-                    "tmpColor": "FFFFFF",
-                    "tmpSize": 16,
-                    "cityColor": "FFFFFF",
-                    "citySize": 16,
-                    "aqiSize": 16,
-                    "weatherIconSize": 24,
-                    "alertIconSize": 18,
-                    "padding": "10px 10px 10px 10px",
-                    "shadow": "1",
-                    "language": "zh",
-                    "borderRadius": 5,
-                    "fixed": "false",
-                    "vertical": "middle",
-                    "horizontal": "center",
-                    "key": "UZXiJpyiBU"
-                }
-            }
-        </script>
-        <script src="https://apip.weatherdt.com/simple/static/js/weather-simple-common.js?v=2.0"></script>
-    </div>
+layout: home
+title: Home
+banner: "/assets/images/banners/home.jpeg"
+---
 
-     <div class="about-content">
-        <div class="w1000">
-            <div class="item info">
-                <div class="title">
-                    <h3>自我介绍</h3>
-                </div>
-                <div class="cont">
-                    <img src="/res/img/author.jpg">
-                    <div class="per-info">
-                        <p>
-                            <span class="name">杨云翔</span><br />
-                            <span class="age">91后</span><br />
-                            <span class="Career">开发, Web工程师</span><br />
-                            <span class="interest">爱好旅游,游戏、科技</span>
-                        </p>
-                    </div>
-                </div>
+<div class="about-content">
+    <div class="w1000">
+        <div class="item info">
+            <div class="title">
+                <h3>自我介绍</h3>
             </div>
-            <div class="item tool">
-                <div class="title">
-                    <h3>我的技能</h3>
-                </div>
-                <div class="layui-fluid">
-                    <div class="layui-row">
-                        <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
-                            <div class="cont-box">
-                                <a href="/html/posts.html" style="text-decoration-line:none">
-                                    <img src="/res/img/postsIcon.png">
-                                    <p>技术文随笔</p>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
-                            <div class="cont-box">
-                                <a href="#wechatChannel" style="text-decoration-line:none">
-                                    </a>
-                                    <img src="/res/img/wechatIcon.png">
-                                    <p>微信号运营</p>
-                            </div>
-                        </div>
-                        <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
-                            <div class="cont-box">
-                                <a href="#webApi" style="text-decoration-line:none"></a>
-                                    <img src="/res/img/devopsIcon.png">
-                                    <p>Api微服务</p>
-                            </div>
-
-                        </div>
-                        <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
-                            <div class="cont-box">
-                                <a href="" style="text-decoration-line:none">
-                                    <img src="/res/img/cloudIcon.png">
-                                    <p>BT搜索类</p>
-                                </a>
-                            </div>                              
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item devops">
-                <div class="title">
-                    <h3>我的作品</h3>
-                </div>
-                <div class="layui-fluid">
-                    <div class="layui-row">
-                        <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
-                            <div class="cont-box">
-                                <img src="/res/img/githubIcon.png">
-                                <p>Layui_Blog模板二次修改</p>
-                            </div>
-                        </div>
-                        <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
-                            <div class="cont-box">
-                                <img src="/res/img/aspnetcoreIcon.png">
-                                <p>EF Core/MongoDB增删改查</p>
-                            </div>
-                        </div>
-                        <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
-                            <div class="cont-box">
-                                <img src="/res/img/sqlTableIcon.png">
-                                <p>AWS/Azure数据库</p>
-                            </div>
-                        </div>
-                        <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
-                            <div class="cont-box">
-                                <img src="/res/img/devopsIcon.png">
-                                <p>Web Api网关层</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="footer-wrap">
-        <div class="footer w1000">
-            <div class="qrcode">
-                <img src="/res/img/erweima.jpg">
-            </div>
-            <div class="practice-mode">
-                <a id="wechatChannel" style="text-decoration-line:none"><img src="/res/img/down_img.jpg"></a>
-                <div class="text">
-                    <h4 class="title">联系方式</h4>
+            <div class="cont">
+                <img src="/assets/images/author.jpg">
+                <div class="per-info">
                     <p>
-                        <span class="WeChat">
-                            <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1651639629&site=qq&menu=yes">
-                                <img border="0" src="/res/img/button_111.jpg" alt="点击这里给我发消息" title="点击这里给我发消息" />
-                            </a>
-                        </span>
+                        <span class="name">杨云翔</span><br />
+                        <span class="age">91后</span><br />
+                        <span class="Career">开发, Web工程师</span><br />
+                        <span class="interest">爱好旅游,游戏、科技</span>
                     </p>
-                    <p><span class="groupchat"><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=5fe6c45769cd2c4d81d81adb4e7ea9c63f587e7bf559e92ca6fd8979fa29c34b"><img border="0" src="/res/img/group.png" alt="Win10、UWP技术交流前沿" title="Win10、UWP技术交流前沿"></a></span></p>
-                    <p><span class="email"><a href="mailto:yang@axiangblog.cn?subject=你好，阿象" class="glyphicon glyphicon glyphicon-envelope">:yang.#axiangblog.cn(#替换@)</a></span></p>
                 </div>
             </div>
         </div>
-        <div class="footer w1000">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <!-- FooterAd -->
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-3719741560647745"
-                 data-ad-slot="8747165358"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
+        <div class="item tool">
+            <div class="title">
+                <h3>我的技能</h3>
+            </div>
+            <div class="layui-fluid">
+                <div class="layui-row">
+                    <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
+                        <div class="cont-box">
+                            <a href="/pages.html" style="text-decoration-line:none">
+                                <img src="/assets/images/postsIcon.png">
+                                <p>技术文随笔</p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
+                        <div class="cont-box">
+                            <a href="#wechatChannel" style="text-decoration-line:none">
+                                </a>
+                                <img src="/assets/images/wechatIcon.png">
+                                <p>微信号运营</p>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
+                        <div class="cont-box">
+                            <a href="#webApi" style="text-decoration-line:none"></a>
+                                <img src="/assets/images/devopsIcon.png">
+                                <p>Api微服务</p>
+                        </div>
+
+                    </div>
+                    <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
+                        <div class="cont-box">
+                            <a href="" style="text-decoration-line:none">
+                                <img src="/assets/images/cloudIcon.png">
+                                <p>BT搜索类</p>
+                            </a>
+                        </div>                              
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="footer w1000">
-            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
-                <p style="text-align: center;">
-                    © 2020-2021 杨云翔的个人博客.All rights reserved.
-                </p>
-                <p style="text-align: center;color: #3f2863">Azure静态Web+Cloudflare</p>
-                <p style="text-align: center;color: #3f2863">本网站由<a href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" target="_blank"><img border="0" height="19px" src="/res/img/upyun_logos/logo.png" alt="又拍云" title="又拍云" /></a>提供CDN加速/云存储服务</p>
-                <p style="text-align: center;color: #3f2863">备案号：<a href="https://beian.miit.gov.cn" target="_blank">苏ICP备15012809号-1</a></p>
+        <div class="item devops">
+            <div class="title">
+                <h3>我的作品</h3>
+            </div>
+            <div class="layui-fluid">
+                <div class="layui-row">
+                    <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
+                        <div class="cont-box">
+                            <img src="/assets/images/githubIcon.png">
+                            <p>Layui_Blog模板二次修改</p>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
+                        <div class="cont-box">
+                            <img src="/assets/images/aspnetcoreIcon.png">
+                            <p>EF Core/MongoDB增删改查</p>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
+                        <div class="cont-box">
+                            <img src="/assets/images/sqlTableIcon.png">
+                            <p>AWS/Azure数据库</p>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
+                        <div class="cont-box">
+                            <img src="/assets/images/devopsIcon.png">
+                            <p>Web Api网关层</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="/res/layui/layui.js"></script>
-    <script src="/res/js/avalon/avalon.min.js"></script>
-    <script src="/res/js/jquery/jquery.min.js"></script>
-    <script src="/res/js/bootstrap/bootstrap.min.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            layui.config({
-                base: '/res/js/util/'
-            }).use(
-                ['element', 'laypage', 'jquery', 'menu'],
-                function () {
-                    //菜单依赖
-                    element = layui.element,
-                        laypage = layui.laypage,
-                        $ = layui.$,
-                        menu = layui.menu;
+</div>
 
-                    menu.init();
-                });
-        });
-
-        var viewModel = avalon.define({
-            $id: "postListData",
-            name: "我",
-            dataArray: [],
-            temperatureC: 0,
-            currentPage: 1,
-            pageNumber: 1,
-            pageSize: 10,
-            totalCount: 10
-        });
-
-        setTimeout(function () {
-            queryPagePosts();
-        }, 1000);
-
-
-        //获取分页数据
-        function queryPagePosts() {
-            //jQuery.ajax({
-            //    url: 'https://axiangapi.azurewebsites.net/v1/ApiV1/Get',
-            //    type: 'Get',
-            //    contentType: 'application/json',
-            //    data: JSON.stringify(),
-            //    success: function (res) {
-            //        console.log("对外API获取res", res);
-            //    }
-            //    , complete: function (data) {
-            //        //console.log("complete", data.responseText);
-            //    },
-            //    error: function (data) {
-            //        console.log("data", data);
-            //    }
-            //});
-
-            jQuery.ajax({
-                url: 'https://axiangfunctions.azurewebsites.net/api/Function1?name=ibm',
-                type: 'Get',
-                contentType: 'application/json',
-                data: JSON.stringify(),
-                success: function (res) {
-                    console.log("对外FunctionAPI获取res", res);
-                    console.log(viewModel);
-                    viewModel.dataArray = res;
-                    viewModel.totalCount = res.length + 30;
-                    doPageView(viewModel.totalCount, viewModel.pageSize);
-                }
-                , complete: function (data) {
-                    //console.log("complete", data.responseText);
-                },
-                error: function (data) {
-                    console.log("data", data);
-                }
-            });
-        }
-
-        //分页渲染页面数据
-        function doPageView(totalCount, pageSize) {
-            //分页容器
-            laypage.render({
-                elem: 'pageBar',
-                count: totalCount, //数据总数，从服务端得到
-                limit: pageSize,
-                jump: function (obj, first) {
-                    //obj包含了当前分页的所有参数，比如：
-                    //console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-                    //console.log(obj.limit); //得到每页显示的条数
-                    //首次不执行
-                    if (obj.curr == 1) {
-                        //do something
-                    } else {
-                        jumpTargetPage(obj.curr, obj.limit);
-                    }
-                }
-            });
-        }
-
-        //页面跳转
-        function jumpTargetPage(pageNumber, pageSize) {
-            console.log(pageNumber, pageSize);
-        }
-
-        function getPostsByTagName(name) {
-            console.log("当前Post分类名称:", name);
-        }
-    </script>
-</body>
-</html>
+<div class="footer-wrap">
+    <div class="footer w1000">
+        <div class="qrcode">
+            <img src="/assets/images/erweima.jpg">
+        </div>
+        <div class="practice-mode">
+            <a id="wechatChannel" style="text-decoration-line:none"><img src="/assets/images/down_img.jpg"></a>
+            <div class="text">
+                <h4 class="title">联系方式</h4>
+                <p>
+                    <span class="WeChat">
+                        <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1651639629&site=qq&menu=yes">
+                            <img border="0" src="/assets/images/button_111.jpg" alt="点击这里给我发消息" title="点击这里给我发消息" />
+                        </a>
+                    </span>
+                </p>
+                <p><span class="groupchat"><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=5fe6c45769cd2c4d81d81adb4e7ea9c63f587e7bf559e92ca6fd8979fa29c34b">
+                    <img border="0" src="/assets/images/group.png" alt="Win10、UWP技术交流前沿" title="Win10、UWP技术交流前沿"></a></span></p>
+                <p><span class="email"><a href="mailto:yang@axiangblog.cn?subject=你好，阿象" class="glyphicon glyphicon glyphicon-envelope">Mail:yang.#axiangblog.cn(#替换@)</a></span></p>
+            </div>
+        </div>
+    </div>
+ </div>

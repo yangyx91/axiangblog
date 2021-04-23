@@ -1,0 +1,9 @@
+# Translate languges
+# langs refer to https://cloud.google.com/translate/docs/languages
+
+- lang: en
+  text: English
+
+- lang: zh-CN
+  text: Chinese(Simple)
+
