@@ -1,7 +1,7 @@
-# ���󲩿� 
+﻿# 阿象博客 
 
-#����վ����ʾ��ʹ����azure��̬webӦ��
+#个人站点演示，使用了azure静态web应用
 
-#���⣺jekyll
+#主题：jekyll
 
-#api���ã�
+#api调用：

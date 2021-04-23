@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 
 
-<header class="site-header " role="banner">
+<header class="site-header site-header-transparent" role="banner">
 
   <div class="wrapper">
     <div class="site-header-inner">
@@ -315,7 +315,7 @@ function googleTranslateElementInit() {
     var documentElement = document.documentElement;
 
     function storeScrollData() {
-      var y = getScrollPos().y;var scrollStatus = "";
+      var y = getScrollPos().y;documentElement.setAttribute("data-header-transparent", "");var scrollStatus = "";
 
       if (y <= 0) {
         scrollStatus = "top";
@@ -379,7 +379,22 @@ function googleTranslateElementInit() {
 
 
 
-<script>
+
+  <section class="page-banner">
+    <div class="page-banner-img">
+      <div style="background-image: url(/assets/images/banners/home.jpeg)"></div>
+    </div>
+    <div class="wrapper">
+      <div class="page-banner-inner"><div class="page-banner-default">
+            <h1 class="page-banner-heading">
+              我的标签
+            </h1>
+            <h2 class="page-banner-subheading">
+              
+            </h2>
+          </div></div>
+    </div>
+  </section><script>
   function hashLocate(hashValue) {
     hashValue = hashValue.replace(/^.*#h-/, '');
     var element = document.getElementById(hashValue);

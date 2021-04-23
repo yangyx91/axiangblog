@@ -386,52 +386,14 @@ function googleTranslateElementInit() {
       <div style="background-image: url(/assets/images/banners/home.jpeg)"></div>
     </div>
     <div class="wrapper">
-      <div class="page-banner-inner">
-<header class="post-header">
-  <h1 class="post-title p-name" itemprop="name headline">Your awesome heading</h1>
-  <h3 class="post-subtitle">Your awesome subheading</h3>
-
-  <p class="post-meta">
-    <time class="dt-published" datetime="" itemprop="datePublished"><i class="fa fa-calendar"></i> 
-    </time>
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 1 min</span>
-  </p></header>
-</div>
+      <div class="page-banner-inner"><div class="page-banner-default">
+            <h1 class="page-banner-heading">
+              Your awesome heading
+            </h1>
+            <h2 class="page-banner-subheading">
+              Your awesome subheading
+            </h2>
+          </div></div>
     </div>
   </section><script>
   function hashLocate(hashValue) {
@@ -585,25 +547,7 @@ function googleTranslateElementInit() {
 </script>
 <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <div class="framework">
-  <section class="main">
-
-     <div class="post">
-  <section>
-
-
-
-
-
-
-
-
-
-<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
-
-    <div class="post-content e-content" itemprop="articleBody">
-
-      <div class="about-content">
+        <div class="about-content">
     <div class="w1000">
         <div class="item info">
             <div class="title">
@@ -721,145 +665,6 @@ function googleTranslateElementInit() {
         </div>
     </div>
  </div>
-
-
-    </div>
-
-</article>
-<div class="post-nav">
-<span></span><span></span>
-</div>
-<div class="post-comments"></div></section>
-</div>
-
-
-  </section>
-  <section class="sidebar" style="margin-left: 15px;">
-    <!-- Get sidebar items --><style type="text/css" media="screen">
-.post-menu ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-</style>
-
-<div class="post-menu">
-  <div class="post-menu-title">Topic</div>
-  <div class="post-menu-content"></div>
-</div>
-
-<script>
-  function generateContent() {
-    var menu = document.querySelector(".post-menu");
-    var menuContent =  menu.querySelector(".post-menu-content");
-    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
-
-    // Hide menu when no headings
-    if (headings.length === 0) {
-      return menu.style.display = "none";
-    }
-
-    // Generate post menu
-    var menuHTML = '';
-    for (var i = 0; i < headings.length; i++) {
-      var h = headings[i];
-      menuHTML += (
-        '<li class="h-' + h.tagName.toLowerCase() + '">'
-        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
-    }
-
-    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
-
-    // The header element
-    var header = document.querySelector('header.site-header');
-
-    function doMenuCollapse(index, over_items) {
-      var items = menuContent.firstChild.children;
-
-      if (over_items == undefined) {
-        over_items = 20;
-      }
-
-      if (items.length < over_items) {
-        return;
-      }
-
-      var activeItem = items[index];
-      var beginItem = activeItem
-      var endItem = activeItem
-      var beginIndex = index;
-      var endIndex = index + 1;
-      while (beginIndex >= 0
-        && !items[beginIndex].classList.contains('h-h2')) {
-        beginIndex -= 1;
-      }
-      while (endIndex < items.length
-        && !items[endIndex].classList.contains('h-h2')) {
-        endIndex += 1;
-      }
-      for (var i = 0; i < beginIndex; i++) {
-        item = items[i]
-        if (!item.classList.contains('h-h2')) {
-          item.style.display = 'none';
-        }
-      }
-      for (var i = beginIndex + 1; i < endIndex; i++) {
-        item = items[i]
-        // if (!item.classList.contains('h-h2')) {
-          item.style.display = '';
-        // }
-      }
-      for (var i = endIndex; i < items.length; i++) {
-        item = items[i]
-        if (!item.classList.contains('h-h2')) {
-          item.style.display = 'none';
-        }
-      }
-    }
-
-    // Init menu collapsed
-    doMenuCollapse(-1);
-
-    // Active the menu item
-    window.addEventListener('scroll', function (event) {
-      var lastActive = menuContent.querySelector('.active');
-      var changed = true;
-      var activeIndex = -1;
-      for (var i = headings.length - 1; i >= 0; i--) {
-        var h = headings[i];
-        var headingRect = h.getBoundingClientRect();
-        var headerRect = header.getBoundingClientRect();
-        var headerTop = Math.floor(headerRect.top);
-        var headerHeight = Math.floor(headerRect.height);
-        var headerHeight = headerTop + headerHeight + 20;
-        if (headingRect.top <= headerHeight) {
-          var id = 'h-' + h.getAttribute('id');
-          var a = menuContent.querySelector('a[href="#' + id  + '"]');
-          var curActive = a.parentNode;
-          if (curActive) {
-            curActive.classList.add('active');
-            activeIndex = i;
-          }
-          if (lastActive == curActive) {
-            changed = false;
-          }
-          break;
-        }
-      }
-      if (changed) {
-        if (lastActive) {
-          lastActive.classList.remove('active');
-        }
-        doMenuCollapse(activeIndex);
-      }
-      event.preventDefault();
-    });
-  }
-  generateContent();
-</script>
-</section>
-</div>
-
       </div>
     </main><footer class="site-footer h-card">
   <data class="u-url" href="/"></data>
