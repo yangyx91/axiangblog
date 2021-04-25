@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>阿象博客—文章</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv=X-UA-Compatible content="IE=edge">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="description" content="聚焦Win10、C#、Xbox、Asp.Net/Core、Web Api" />
+    <meta name="keywords" content="Win10,Win10开发,Xbox,.Net Core,Asp.net,Api,UWP,MVC,C#" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/res/css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/res/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="/res/css/main.css">
+    <!--加载meta IE兼容文件-->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "69450se9ra");
+    </script>
+</head>
+<body ms-controller="postListData">
+    <div class="header">
+        <div class="menu-btn">
+            <div class="menu"></div>
+        </div>
+        <h1 class="logo">
+            <a href="../index.html">
+                <span>MYBLOG</span>
+                <img src="/res/img/logo.png">
+            </a>
+        </h1>
+        <div class="nav">
+            <a href="../index.html" class="active">文章</a>
+            <a href="/html/whisper.html">微语</a>
+            <a href="/html/leacots.html">留言</a>
+            <a href="/html/album.html">相册</a>
+            <a href="/html/about.html">关于</a>
+            <a href="/html/privacy.html">隐私政策</a>
+        </div>
+        <ul class="layui-nav header-down-nav">
+            <li class="layui-nav-item"><a href="index.html" class="active">文章</a></li>
+            <li class="layui-nav-item"><a href="/html/whisper.html">微语</a></li>
+            <li class="layui-nav-item"><a href="/html/leacots.html">留言</a></li>
+            <li class="layui-nav-item"><a href="/html/album.html">相册</a></li>
+            <li class="layui-nav-item"><a href="/html/about.html">关于</a></li>
+            <li class="layui-nav-item"><a href="/html/privacy.html">隐私政策</a></li>
+        </ul>
+        <p class="welcome-text">
+            欢迎来到<span class="name">{{##name}}</span>的博客~
+        </p>
+    </div>
+
+    <div class="content whisper-content">
+        <div class="cont w1000">
+            <div class="title">
+                <span class="layui-breadcrumb" lay-separator="|">
+                    <a href="javascript:getPostsByTagName('云开发');" class="active">云开发</a>
+                    <a href="javascript:getPostsByTagName('酷软');">酷软</a>
+                    <a href="javascript:getPostsByTagName('游戏');">游戏</a>
+                </span>
+            </div>
+            <!--文章列表-->
+            <div class="whisper-list" id="view">
+                <div class="item-box">
+                    <div class="item" ms-for="($index,el) in ##dataArray | orderBy(##temperatureC)">
+                        <div class="layui-fluid">
+                            <div class="layui-row">
+                                <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                                    <div class="whisper-title">
+                                        <i class="layui-icon layui-icon-date"></i><span class="hour">{{el.Title}}</span><span class="date">{{el.PostDate}}</span>
+                                    </div>
+                                    <p class="text-cont">{{el.Description}}</p>
+                                    <div class="img-box"><img ms-attr="{src:el.Thumbnail}"></div>
+                                    <p class="text-cont">{{el.PostType}}</p>
+                                    <div class="op-list">
+                                        <p class="like"><i class="layui-icon layui-icon-praise"></i><span>1200</span></p>
+                                        <p class="edit"><i class="layui-icon layui-icon-reply-fill"></i><span>1200</span></p>
+                                        <p class="off"><span><a ms-attr="{href:el.PostUrl,target:_blank}" class="go-icon">Read More</a></span><i class="layui-icon layui-icon-down"></i></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--分页模块-->
+            <div id="pageBar" style="text-align: center;"></div>
+        </div>
+    </div>
+
+    <div class="footer-wrap">
+        <div class="footer w1000">
+            <div class="qrcode">
+                <img src="/res/img/erweima.jpg">
+            </div>
+            <div class="practice-mode">
+                <img src="/res/img/down_img.jpg">
+                <div class="text">
+                    <h4 class="title">联系方式</h4>
+                    <p>
+                        <span class="WeChat">
+                            <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1651639629&site=qq&menu=yes">
+                                <img border="0" src="/res/img/button_111.jpg" alt="点击这里给我发消息" title="点击这里给我发消息" />
+                            </a>
+                        </span>
+                    </p>
+                    <p><span class="groupchat"><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=5fe6c45769cd2c4d81d81adb4e7ea9c63f587e7bf559e92ca6fd8979fa29c34b"><img border="0" src="/res/img/group.png" alt="Win10、UWP技术交流前沿" title="Win10、UWP技术交流前沿"></a></span></p>
+                    <p><span class="email"><a href="mailto:yang@axiangblog.com?subject=你好，阿象" class="glyphicon glyphicon glyphicon-envelope">:yang.#axiangblog.com(#替换@)</a></span></p>
+                </div>
+            </div>
+        </div>
+        <div class="footer w1000">
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                <p style="text-align: center;">© 2020 阿象博客.All rights reserved.</p>
+                <p style="text-align: center;color: #3f2863">Azure静态Web+七牛云+Cloudflare</p>
+                <p style="text-align: center;color: #3f2863">苏ICP备15012809号-1</p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/res/layui/layui.js"></script>
+    <script src="/res/js/avalon/avalon.min.js"></script>
+    <script src="/res/js/jquery/jquery.min.js"></script>
+    <script src="/res/js/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            layui.config({
+                base: '/res/js/util/'
+            }).use(
+                ['element', 'laypage', 'jquery', 'menu'],
+                function () {
+                    //菜单依赖
+                    element = layui.element,
+                        laypage = layui.laypage,
+                        $ = layui.$,
+                        menu = layui.menu;
+
+                    menu.init();
+                });
+        });
+
+        var viewModel = avalon.define({
+            $id: "postListData",
+            name: "我",
+            dataArray: [],
+            temperatureC: 0,
+            currentPage: 1,
+            pageNumber: 1,
+            pageSize: 50,
+            totalCount: 10
+        });
+
+        setTimeout(function () {
+            queryPagePosts();
+        }, 1000);
+
+
+        //获取分页数据
+        function queryPagePosts() {
+            jQuery.ajax({
+                url: 'https://openapi.axiangblog.com/getWxPosts/v1/',
+                type: 'Post',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    page: viewModel.pageNumber,
+                    pageSize: viewModel.pageSize
+                }),
+                success: function (res) {
+                    console.log("对外FunctionAPI获取res", res);
+                    console.log(viewModel);
+                    viewModel.dataArray = res.data;
+                    viewModel.totalCount = res.affectedDocs;
+                    doPageView(viewModel.totalCount, viewModel.pageSize);
+                }
+                , complete: function (data) {
+                    //console.log("complete", data.responseText);
+                },
+                error: function (data) {
+                    console.log("data", data);
+                }
+            });
+        }
+
+        //分页渲染页面数据
+        function doPageView(totalCount, pageSize) {
+            //分页容器
+            laypage.render({
+                elem: 'pageBar',
+                count: totalCount, //数据总数，从服务端得到
+                limit: pageSize,
+                jump: function (obj, first) {
+                    //obj包含了当前分页的所有参数，比如：
+                    //console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                    //console.log(obj.limit); //得到每页显示的条数
+                    //首次不执行
+                    if (obj.curr == 1) {
+                        //do something
+                    } else {
+                        jumpTargetPage(obj.curr, obj.limit);
+                    }
+                }
+            });
+        }
+
+        //页面跳转
+        function jumpTargetPage(pageNumber, pageSize) {
+            viewModel.pageNumber = pageNumber;
+            viewModel.pageSize = pageSize;
+            console.log(pageNumber, pageSize);
+        }
+
+        function getPostsByTagName(name) {
+            console.log("当前Post分类名称:", name);
+        }
+    </script>
+</body>
+</html>
