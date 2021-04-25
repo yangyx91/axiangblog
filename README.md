@@ -1,7 +1,7 @@
-ï»¿# é˜¿è±¡åšå®¢ 
+# °¢Ïó²©¿Í 
 
-#ä¸ªäººç«™ç‚¹æ¼”ç¤ºï¼Œä½¿ç”¨äº†azureé™æ€webåº”ç”¨
+#¸öÈËÕ¾µãÑİÊ¾£¬Ê¹ÓÃÁËazure¾²Ì¬webÓ¦ÓÃ
 
-#ä¸»é¢˜ï¼šjekyll
+#Ö÷Ìâ£ºlayui,Ä£ĞÍ°ó¶¨£ºavalon
 
-#apiè°ƒç”¨ï¼š
+#apiµ÷ÓÃ£ºazure function api+azure/ibm cloud web api

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>阿象博客—登陆</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv=X-UA-Compatible content="IE=edge">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="description" content="聚焦Win10、C#、Xbox、Asp.Net/Core、Web Api" />
+    <meta name="keywords" content="Win10,Win10开发,Xbox,.Net Core,Asp.net,Api,UWP,MVC,C#" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/res/css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/res/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="/res/css/main.css">
+</head>
+<body ms-controller="postListData">
+    <div class="header">
+        <div class="menu-btn">
+            <div class="menu"></div>
+        </div>
+        <h1 class="logo">
+            <a href="../index.html">
+                <span>MYBLOG</span>
+                <img src="/res/img/logo.png">
+            </a>
+        </h1>
+        <div class="nav">
+            <a href="posts.html" class="active">文章</a>
+            <a href="whisper.html">微语</a>
+            <a href="leacots.html">留言</a>
+            <a href="album.html">相册</a>
+            <a href="about.html">关于</a>
+            <a href="JavaScript:signIn()">登陆</a>
+        </div>
+        <ul class="layui-nav header-down-nav">
+            <li class="layui-nav-item"><a href="posts.html" class="active">文章</a></li>
+            <li class="layui-nav-item"><a href="whisper.html">微语</a></li>
+            <li class="layui-nav-item"><a href="leacots.html">留言</a></li>
+            <li class="layui-nav-item"><a href="album.html">相册</a></li>
+            <li class="layui-nav-item"><a href="about.html">关于</a></li>
+            <li class="layui-nav-item"> <a class="iconfont icon-touxiang layui-hide-xs icon-qq" href="JavaScript:signIn()"></a></li>
+        </ul>
+        <p class="welcome-text">
+            欢迎{{##guest}}来到<span class="name">{{##name}}</span>的博客~
+        </p>
+    </div>
+
+    <div class="content whisper-content leacots-content">
+        <div class="cont w1000">
+            <div class="whisper-list">
+                <div class="item-box">
+                    <div class="review-version">
+                        <div class="list-cont">
+                            <div class="cont">
+                                <div class="img">
+                                    <img src="/res/img/author.jpg" alt="">
+                                </div>
+                                <div class="text" style="margin-left:100px">
+                                    <h1>
+                                        {{##userName}}
+                                        <i class="iconfont icon-nan"></i>
+                                        <i class="layui-badge fly-badge-vip">{{##userEmail}}</i>
+                                    </h1>
+                                    <p style="padding: 10px 0; color: #5FB878;">访问日期：{{##today}}</p>
+                                    <p style="padding: 10px 0; color: #5FB878;">用户标识：{{##uid}}</p>
+
+                                    <div class="fly-sns" data-user="">
+                                        <a href="mailto:yang@axiangblog.cn?subject=你好，阿象" class="layui-btn layui-btn-primary fly-imActive" data-type="">联系方式</a>
+                                    </div>
+                                    <div class="fly-sns" data-user="">
+                                        <a href="JavaScript:callAccessToken()" class="layui-btn layui-btn-primary fly-imActive" data-type="">Call AccessToken</a>
+                                    </div>
+                                    <div class="fly-sns" data-user="">
+                                        <a href="JavaScript:sendEmail()" class="layui-btn layui-btn-primary fly-imActive" data-type="">Send Email</a>
+                                    </div>
+                                    <div class="fly-sns" data-user="">
+                                        <a href="JavaScript:signOut()" class="layui-btn layui-btn-primary fly-imActive" data-type="">Call SignOut</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="demo" style="text-align: center;"></div>
+        </div>
+    </div>
+
+    <div class="footer-wrap">
+        <div class="footer w1000">
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                <p style="text-align: center;">© 2020 阿象博客.All rights reserved.</p>
+                <p style="text-align: center;color: #3f2863">Azure静态Web+七牛云+Cloudflare</p>
+                <p style="text-align: center;color: #3f2863">苏ICP备15012809号-1</p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/res/layui/layui.js"></script>
+    <script src="/res/js/avalon/avalon.min.js"></script>
+    <script src="/res/js/jquery/jquery.min.js"></script>
+    <script src="/res/js/bootstrap/bootstrap.min.js"></script>
+    <!--MSAL -->
+    <script src="/res/js/msal.js"
+            integrity="sha384-9TV1245fz+BaI+VvCjMYL0YDMElLBwNS84v3mY57pXNOt6xcUYch2QLImaTahcOP"
+            crossorigin="anonymous"></script>
+
+    <!-- Graph SDK -->
+    <script src="/res/js/graph-js-sdk.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        var access_token;
+        var id_Token;
+        var viewModel = avalon.define({
+            $id: "postListData",
+            name: "我",
+            guest: "",
+            userName: "",
+            userEmail: "",
+            uid: "",
+            today: getDate()
+        });
+
+        $(function () {
+            layui.config({
+                base: '/res/js/util/'
+            }).use(
+                ['element', 'laypage', 'jquery', 'menu'],
+                function () {
+                    //菜单依赖
+                    element = layui.element,
+                        laypage = layui.laypage,
+                        $ = layui.$,
+                        menu = layui.menu;
+
+                    menu.init();
+                });
+
+            //获取日期
+        });
+
+       
+
+        //config
+        const msalConfig = {
+            auth: {
+                clientId: '9463ab2b-f1cf-4c42-be7c-f87b12871834',
+                redirectUri: 'https://www.axiangblog.cn/html/login.html'
+            },
+            cache: {
+                cacheLocation: "sessionStorage",
+                storeAuthStateInCookie: false,
+                forceRefresh: false
+            }
+        };
+
+        const loginRequest = {
+            scopes: [
+                'openid',
+                'profile',
+                'user.read.all'
+                //'calendars.read'
+            ]
+        }
+
+        const accessTokenRequest = {
+            scopes: [
+                //'openid',
+                //'profile',
+                'user.read'
+                //'calendars.read'
+            ]
+        }
+
+        //Auth
+
+        // Create the main MSAL instance
+        // configuration parameters are located in config.js
+        const msalClient = new Msal.UserAgentApplication(msalConfig);
+
+        if (msalClient.getAccount() && !msalClient.isCallback(window.location.hash)) {
+            // avoid duplicate code execution on page load in case of iframe and Popup window.
+        }
+
+        //graph
+
+        // Create an options object with the same scopes from the login
+        const options =
+            new MicrosoftGraph.MSALAuthenticationProviderOptions([
+                'user.read.all', 'mail.send'
+            ]);
+        // Create an authentication provider for the implicit flow
+        const authProvider =
+            new MicrosoftGraph.ImplicitMSALAuthenticationProvider(msalClient, options);
+        // Initialize the Graph client
+        const graphClient = MicrosoftGraph.Client.initWithMiddleware({ authProvider });
+
+        
+
+        async function signIn() {
+            // Login
+            try {
+                await msalClient.loginPopup(loginRequest)
+                    .then(function (loginResponse) {
+                        //login success
+                        let idToken = loginResponse.idToken;
+                        console.log('id_token acquired at: ' + new Date().toString());
+                }).catch(function (error) {
+                       //login failure
+                       console.log(error);
+                });
+
+                if (msalClient.getAccount()) {
+                    viewModel.userName = msalClient.getAccount().name;
+                    viewModel.guest = viewModel.userName + ',';
+                    viewModel.userEmail = msalClient.getAccount().userName;
+                    viewModel.uid = msalClient.getAccount().accountIdentifier;
+                }
+            } catch (error) {
+                console.log(error);
+
+            }
+        }
+
+        async function callAccessToken() {
+            //Call AccessToken
+            try {
+                await msalClient.acquireTokenSilent(accessTokenRequest).then(function (accessTokenResponse) {
+                    // Acquire token silent success
+                    // Call API with token
+                    let accessToken = accessTokenResponse.accessToken;
+                    console.log(accessTokenResponse);
+                    access_token = accessToken;
+                    if (access_token != null && access_token != '') {
+                        callWebApi(access_token);
+                    }
+                }).catch(function (error) {
+                    //Acquire token silent failure, and send an interactive request
+                    console.log(error);
+                    //if (error.errorMessage.indexOf("interaction_required") !== -1) {
+                        userAgentApplication.acquireTokenPopup(accessTokenRequest).then(function (accessTokenResponse) {
+                            // Acquire token interactive success
+                            let accessToken = accessTokenResponse.accessToken;
+                            console.log(accessTokenResponse);
+                            access_token = accessToken;
+                            if (access_token != null && access_token != '') {
+                                callWebApi(access_token);
+                            }
+                        }).catch(function (error) {
+                            // Acquire token interactive failure
+                            console.log(error);
+                        });
+                   // }
+                    console.log(error);
+                });
+
+            } catch (error) {
+
+            }
+            
+        }
+
+        // call rest api
+        function callWebApi(access_token) {
+            var headers = new Headers();
+            var bearer = "Bearer " + access_token;
+            headers.append("Authorization", bearer);
+            var options = {
+                method: "GET",
+                headers: headers
+            };
+            var graphEndpoint = "https://graph.microsoft.com/v1.0/me";
+
+            fetch(graphEndpoint, options)
+                .then(function (response) {
+                    //do something with response  
+
+                    if (response.status == 200) {
+                        var data = response.json();
+                        data.then(function (userinfo) {
+                            //Print the JSON string                        
+                            console.log(userinfo);
+                        })
+                    }
+                });
+        }
+
+       
+
+        async function sendEmail() {
+
+            const sendMail = {
+                message: {
+                    subject: "JS调用邮件发送服务",
+                    body: {
+                        contentType: "HTML",
+                        content: "调用了microsoft graph rest api 1.0邮件接口服务"
+                    },
+                    toRecipients: [
+                        {
+                            emailAddress: {
+                                address: "yang.yx91@live.cn"
+                            }
+                        }
+                    ],
+                    ccRecipients: [
+                        {
+                            emailAddress: {
+                                address: "yang@axiangblog.cn"
+                            }
+                        }
+                    ]
+                },
+                saveToSentItems: "false"
+            };
+
+            let res = await graphClient.api('/me/sendMail')
+                .post(sendMail);
+            console.log(res);
+        }
+
+        function signOut() {
+            msalClient.logout();
+        }
+
+        function getDate() {
+            var date = new Date();
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var day = date.getDate();
+            if (month < 10) {
+                month = "0" + month;
+            }
+            if (day < 10) {
+                day = "0" + day;
+            }
+            return (year + "-" + month + "-" + day);
+        }
+
+    </script>
+</body>
+</html>
