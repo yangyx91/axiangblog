@@ -95,10 +95,10 @@
                     <img src="/res/img/author.jpg">
                     <div class="per-info">
                         <p>
-                            <span class="name">杨云翔</span><br />
+                            <span class="name">象叔叔</span><br />
                             <span class="age">91后</span><br />
-                            <span class="Career">开发, Web工程师</span><br />
-                            <span class="interest">爱好旅游,游戏、科技</span>
+                            <span class="Career">个人站长、Web工程师</span><br />
+                            <span class="interest">爱好旅游、游戏、科技</span>
                         </p>
                     </div>
                 </div>
@@ -119,10 +119,10 @@
                         </div>
                         <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
                             <div class="cont-box">
-                                <a href="#wechatChannel" style="text-decoration-line:none">
+                                <a href="/html/posts.html" style="text-decoration-line:none">
                                     </a>
                                     <img src="/res/img/wechatIcon.png">
-                                    <p>微信号运营</p>
+                                    <p>公众号运营</p>
                             </div>
                         </div>
                         <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
@@ -137,7 +137,7 @@
                             <div class="cont-box">
                                 <a href="" style="text-decoration-line:none">
                                     <img src="/res/img/cloudIcon.png">
-                                    <p>BT搜索类</p>
+                                    <p>云开发</p>
                                 </a>
                             </div>                              
                         </div>
@@ -153,25 +153,25 @@
                         <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
                             <div class="cont-box">
                                 <img src="/res/img/githubIcon.png">
-                                <p>Layui_Blog模板二次修改</p>
+                                <p>Github Devops</p>
                             </div>
                         </div>
                         <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
                             <div class="cont-box">
                                 <img src="/res/img/aspnetcoreIcon.png">
-                                <p>EF Core/MongoDB增删改查</p>
+                                <p>Net Core Blazor</p>
                             </div>
                         </div>
                         <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
                             <div class="cont-box">
                                 <img src="/res/img/sqlTableIcon.png">
-                                <p>AWS/Azure数据库</p>
+                                <p>MongoDB/Cosmos db</p>
                             </div>
                         </div>
                         <div class="layui-col-xs6 layui-col-sm3 layui-col-md3">
                             <div class="cont-box">
                                 <img src="/res/img/devopsIcon.png">
-                                <p>Web Api网关层</p>
+                                <p>Restful Api/OpenID 2.0</p>
                             </div>
                         </div>
                     </div>
@@ -217,7 +217,7 @@
         <div class="footer w1000">
             <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
                 <p style="text-align: center;">
-                    © 2020-2021 杨云翔的个人博客.All rights reserved.
+                    © 2020-2021 象叔叔的个人博客.All rights reserved.
                 </p>
                 <p style="text-align: center;color: #3f2863">Azure静态Web+Cloudflare</p>
                 <p style="text-align: center;color: #3f2863">本网站由<a href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" target="_blank"><img border="0" height="19px" src="/res/img/upyun_logos/logo.png" alt="又拍云" title="又拍云" /></a>提供CDN加速/云存储服务</p>
@@ -248,7 +248,7 @@
 
         var viewModel = avalon.define({
             $id: "postListData",
-            name: "我",
+            name: "象叔叔",
             dataArray: [],
             temperatureC: 0,
             currentPage: 1,
@@ -257,79 +257,7 @@
             totalCount: 10
         });
 
-        setTimeout(function () {
-            queryPagePosts();
-        }, 1000);
-
-
-        //获取分页数据
-        function queryPagePosts() {
-            //jQuery.ajax({
-            //    url: 'https://axiangapi.azurewebsites.net/v1/ApiV1/Get',
-            //    type: 'Get',
-            //    contentType: 'application/json',
-            //    data: JSON.stringify(),
-            //    success: function (res) {
-            //        console.log("对外API获取res", res);
-            //    }
-            //    , complete: function (data) {
-            //        //console.log("complete", data.responseText);
-            //    },
-            //    error: function (data) {
-            //        console.log("data", data);
-            //    }
-            //});
-
-            jQuery.ajax({
-                url: 'https://axiangfunctions.azurewebsites.net/api/Function1?name=ibm',
-                type: 'Get',
-                contentType: 'application/json',
-                data: JSON.stringify(),
-                success: function (res) {
-                    console.log("对外FunctionAPI获取res", res);
-                    console.log(viewModel);
-                    viewModel.dataArray = res;
-                    viewModel.totalCount = res.length + 30;
-                    doPageView(viewModel.totalCount, viewModel.pageSize);
-                }
-                , complete: function (data) {
-                    //console.log("complete", data.responseText);
-                },
-                error: function (data) {
-                    console.log("data", data);
-                }
-            });
-        }
-
-        //分页渲染页面数据
-        function doPageView(totalCount, pageSize) {
-            //分页容器
-            laypage.render({
-                elem: 'pageBar',
-                count: totalCount, //数据总数，从服务端得到
-                limit: pageSize,
-                jump: function (obj, first) {
-                    //obj包含了当前分页的所有参数，比如：
-                    //console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-                    //console.log(obj.limit); //得到每页显示的条数
-                    //首次不执行
-                    if (obj.curr == 1) {
-                        //do something
-                    } else {
-                        jumpTargetPage(obj.curr, obj.limit);
-                    }
-                }
-            });
-        }
-
-        //页面跳转
-        function jumpTargetPage(pageNumber, pageSize) {
-            console.log(pageNumber, pageSize);
-        }
-
-        function getPostsByTagName(name) {
-            console.log("当前Post分类名称:", name);
-        }
+        
     </script>
 </body>
 </html>

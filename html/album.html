@@ -66,7 +66,8 @@
         </div>
         <div class="img-list">
             <div class="layui-fluid" style="padding:0">
-                <div class="layui-row layui-col-space30 space" ms-for="($index,el) in ##bingImages | orderBy(##orderCondition,-1)">>
+                <div class="layui-row layui-col-space30 space" ms-for="($index,el) in ##bingImages | orderBy(##orderCondition,-1)">
+                    >
                     <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
                         <div class="item">
                             <img ms-attr="{src:el.Url}">
@@ -79,7 +80,8 @@
                     </div>
                 </div>
             </div>
-            <div id="demo"></div>
+            <!--分页模块-->
+            <div id="pageBar" style="text-align: center;"></div>
         </div>
     </div>
     <div class="footer-wrap">
@@ -102,10 +104,7 @@
                 base: '/res/js/util/'
             }).use(['element', 'laypage', 'form', 'layer', 'menu'], function () {
                 element = layui.element, laypage = layui.laypage, form = layui.form, layer = layui.layer, menu = layui.menu;
-                laypage.render({
-                    elem: 'demo'
-                    , count: 70 //数据总数，从服务端得到
-                });
+                
                 layer.photos({
                     photos: '#layer-photos-demo'
                     , anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
@@ -119,7 +118,7 @@
 
         var viewModel = avalon.define({
             $id: "imgListData",
-            name: "我",
+            name: "象叔叔",
             bingImages: [],
             bingImageTitle: "",
             pcImgUrl: "",
@@ -127,7 +126,10 @@
             todayDate: new Date().toString(),
             orderCondition:'createDate',
             pathDomain: 'https://www.bing.com',
-            bingApi:'https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=zh-CN'
+            bingApi: 'https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=zh-CN',
+            pageNumber: 1,
+            pageSize: 10,
+            totalCount: 10
         });
 
         setTimeout(function () {
@@ -140,7 +142,10 @@
                 url: 'https://openapi.axiangblog.cn/bingImgsApi/v1/getBingImgs',
                 type: 'Post',
                 contentType: 'application/json',
-                data: JSON.stringify({"page":1,"pageSize":50}),
+                data: JSON.stringify({
+                    page: viewModel.pageNumber,
+                    pageSize: viewModel.pageSize
+                }),
                 success: function (res) {
                     console.log("对外BingAPI获取res", res);
                     console.log(viewModel);
@@ -152,10 +157,7 @@
                         viewModel.mobileImgUrl = todayImg.UrlBase;
                         viewModel.todayDate = todayImg.CreateDate;
 
-                        laypage.render({
-                            elem: 'demo'
-                            , count: res.data.length //数据总数，从服务端得到
-                        });
+                        doPageView(res.affectedDocs, viewModel.pageSize, viewModel.pageNumber);
                     }
                 }
                 , complete: function (data) {
@@ -165,6 +167,55 @@
                     console.log("data", data);
                 }
             });
+        }
+
+        //分页渲染页面数据
+        function doPageView(totalCount, pageSize, pageNumber) {
+            if (totalCount < pageSize) {
+                //分页容器
+                laypage.render({
+                    elem: 'pageBar',
+                    count: pageSize * pageNumber, //数据总数，从服务端得到
+                    limit: pageSize,
+                    curr: pageNumber,
+                    jump: function (obj, first) {
+                        //obj包含了当前分页的所有参数，比如：
+                        //console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                        //console.log(obj.limit); //得到每页显示的条数
+                        //首次不执行
+                        if (!first) {
+                            jumpTargetPage(obj.curr, obj.limit);
+                        }
+                    }
+                });
+
+            } else {
+                //分页容器
+                laypage.render({
+                    elem: 'pageBar',
+                    count: pageSize * pageNumber + totalCount, //数据总数，从服务端得到
+                    limit: pageSize,
+                    curr: pageNumber,
+                    jump: function (obj, first) {
+                        //obj包含了当前分页的所有参数，比如：
+                        //console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                        //console.log(obj.limit); //得到每页显示的条数
+                        //首次不执行
+                        if (!first) {
+                            jumpTargetPage(obj.curr, obj.limit);
+                        }
+                    }
+                });
+            }
+            
+        }
+
+        //页面跳转
+        function jumpTargetPage(pageNumber, pageSize) {
+            viewModel.pageNumber = pageNumber;
+            viewModel.pageSize = pageSize;
+            //console.log(pageNumber, pageSize);
+            GetBingImgApiResult();
         }
     </script>
 </body>

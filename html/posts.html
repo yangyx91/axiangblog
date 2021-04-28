@@ -60,11 +60,13 @@
 
     <div class="content whisper-content">
         <div class="cont w1000">
-            <div class="title">
-                <span class="layui-breadcrumb" lay-separator="|">
-                    <a href="javascript:getPostsByTagName('云开发');" class="active">云开发</a>
-                    <a href="javascript:getPostsByTagName('酷软');">酷软</a>
-                    <a href="javascript:getPostsByTagName('游戏');">游戏</a>
+            <div class="title" >
+                <span class="layui-breadcrumb" lay-separator="|" >
+                    <a href="javascript:getPostsByTagName({{el.PostType}});" ms-for="($index,el) in ##postTypeArray">{{el.PostType}}</a>
+                    <span lay-separator="" ms-for="($index,el) in ##postTypeArray">|</span>
+                    <!--<a href="javascript:getPostsByTagName('云开发');" class="active">云开发</a>
+    <a href="javascript:getPostsByTagName('酷软');">酷软</a>
+    <a href="javascript:getPostsByTagName('游戏');">游戏</a>-->
                 </span>
             </div>
             <!--文章列表-->
@@ -144,23 +146,51 @@
 
                     menu.init();
                 });
+
+
         });
 
         var viewModel = avalon.define({
             $id: "postListData",
-            name: "我",
+            name: "象叔叔",
+            postTypeArray:[],
             dataArray: [],
             temperatureC: 0,
             currentPage: 1,
             pageNumber: 1,
-            pageSize: 50,
+            pageSize: 10,
             totalCount: 10
         });
 
         setTimeout(function () {
+            queryPostTypes();
             queryPagePosts();
         }, 1000);
 
+        //获取分类标签
+        function queryPostTypes() {
+            //postTypeArray
+            jQuery.ajax({
+                url: 'https://openapi.axiangblog.cn/wxPostTypeApi/v1/getWxPostTypes',
+                type: 'Post',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    page: viewModel.pageNumber,
+                    pageSize: viewModel.pageSize
+                }),
+                success: function (res) {
+                    console.log("对外FunctionAPI获取res", res);
+                    console.log(viewModel);
+                    viewModel.postTypeArray = res.data;
+                }
+                , complete: function (data) {
+                    //console.log("complete", data.responseText);
+                },
+                error: function (data) {
+                    console.log("data", data);
+                }
+            });
+        }
 
         //获取分页数据
         function queryPagePosts() {
@@ -173,11 +203,11 @@
                     pageSize: viewModel.pageSize
                 }),
                 success: function (res) {
-                    console.log("对外FunctionAPI获取res", res);
-                    console.log(viewModel);
+                    //console.log("对外FunctionAPI获取res", res);
+                    //console.log(viewModel);
                     viewModel.dataArray = res.data;
-                    viewModel.totalCount = res.affectedDocs;
-                    doPageView(viewModel.totalCount, viewModel.pageSize);
+                    //viewModel.totalCount = res.affectedDocs;
+                    doPageView(res.affectedDocs, viewModel.pageSize, viewModel.pageNumber);
                 }
                 , complete: function (data) {
                     //console.log("complete", data.responseText);
@@ -189,31 +219,53 @@
         }
 
         //分页渲染页面数据
-        function doPageView(totalCount, pageSize) {
-            //分页容器
-            laypage.render({
-                elem: 'pageBar',
-                count: totalCount, //数据总数，从服务端得到
-                limit: pageSize,
-                jump: function (obj, first) {
-                    //obj包含了当前分页的所有参数，比如：
-                    //console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-                    //console.log(obj.limit); //得到每页显示的条数
-                    //首次不执行
-                    if (obj.curr == 1) {
-                        //do something
-                    } else {
-                        jumpTargetPage(obj.curr, obj.limit);
+        function doPageView(totalCount, pageSize, pageNumber) {
+            if (totalCount < pageSize) {
+                //分页容器
+                laypage.render({
+                    elem: 'pageBar',
+                    count: pageSize * pageNumber, //数据总数，从服务端得到
+                    limit: pageSize,
+                    curr: pageNumber,
+                    jump: function (obj, first) {
+                        //obj包含了当前分页的所有参数，比如：
+                        //console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                        //console.log(obj.limit); //得到每页显示的条数
+                        //首次不执行
+                        if (!first) {
+                            jumpTargetPage(obj.curr, obj.limit);
+                        }
                     }
-                }
-            });
+                });
+            }
+            else
+            {
+                //分页容器
+                laypage.render({
+                    elem: 'pageBar',
+                    count: pageSize * pageNumber + totalCount, //数据总数，从服务端得到
+                    limit: pageSize,
+                    curr: pageNumber,
+                    jump: function (obj, first) {
+                        //obj包含了当前分页的所有参数，比如：
+                        //console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                        //console.log(obj.limit); //得到每页显示的条数
+                        //首次不执行
+                        if (!first) {
+                            jumpTargetPage(obj.curr, obj.limit);
+                        }
+                    }
+                });
+            }
+            
         }
 
         //页面跳转
         function jumpTargetPage(pageNumber, pageSize) {
             viewModel.pageNumber = pageNumber;
             viewModel.pageSize = pageSize;
-            console.log(pageNumber, pageSize);
+            //console.log(pageNumber, pageSize);
+            queryPagePosts();
         }
 
         function getPostsByTagName(name) {
