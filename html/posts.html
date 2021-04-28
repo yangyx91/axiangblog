@@ -136,14 +136,15 @@
             layui.config({
                 base: '/res/js/util/'
             }).use(
-                ['element', 'laypage', 'jquery', 'menu'],
+                ['element', 'laypage', 'jquery', 'menu', 'layer','laydate'],
                 function () {
                     //菜单依赖
                     element = layui.element,
-                        laypage = layui.laypage,
-                        $ = layui.$,
-                        menu = layui.menu;
-
+                    laypage = layui.laypage,
+                    $ = layui.$,
+                    menu = layui.menu;
+                    layer = layui.layer;
+                    laydate = layui.laydate;
                     menu.init();
                 });
 
@@ -169,7 +170,7 @@
 
         //获取分类标签
         function queryPostTypes() {
-            //postTypeArray
+            layer.load(2);
             jQuery.ajax({
                 url: 'https://openapi.axiangblog.cn/wxPostTypeApi/v1/getWxPostTypes',
                 type: 'Post',
@@ -179,8 +180,9 @@
                     pageSize: viewModel.pageSize
                 }),
                 success: function (res) {
-                    console.log("对外FunctionAPI获取res", res);
-                    console.log(viewModel);
+                    //console.log("对外FunctionAPI获取res", res);
+                    //console.log(viewModel);
+                    layer.closeAll('loading');
                     viewModel.postTypeArray = res.data;
                 }
                 , complete: function (data) {
@@ -194,6 +196,7 @@
 
         //获取分页数据
         function queryPagePosts() {
+            layer.load(2);
             jQuery.ajax({
                 url: 'https://openapi.axiangblog.cn/wxPostApi/v1/getWxPosts',
                 type: 'Post',
@@ -203,6 +206,7 @@
                     pageSize: viewModel.pageSize
                 }),
                 success: function (res) {
+                    layer.closeAll('loading');
                     //console.log("对外FunctionAPI获取res", res);
                     //console.log(viewModel);
                     viewModel.dataArray = res.data;

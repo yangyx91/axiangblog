@@ -103,7 +103,11 @@
             layui.config({
                 base: '/res/js/util/'
             }).use(['element', 'laypage', 'form', 'layer', 'menu'], function () {
-                element = layui.element, laypage = layui.laypage, form = layui.form, layer = layui.layer, menu = layui.menu;
+                element = layui.element,
+                laypage = layui.laypage,
+                form = layui.form,
+                layer = layui.layer,
+                menu = layui.menu;
                 
                 layer.photos({
                     photos: '#layer-photos-demo'
@@ -138,6 +142,7 @@
         }, 1000);
 
         function GetBingImgApiResult() {
+            layer.load(2);
             jQuery.ajax({
                 url: 'https://openapi.axiangblog.cn/bingImgsApi/v1/getBingImgs',
                 type: 'Post',
@@ -147,8 +152,9 @@
                     pageSize: viewModel.pageSize
                 }),
                 success: function (res) {
-                    console.log("对外BingAPI获取res", res);
-                    console.log(viewModel);
+                    //console.log("对外BingAPI获取res", res);
+                    //console.log(viewModel);
+                    layer.closeAll('loading');
                     if (res != null && res.data.length > 0) {
                         viewModel.bingImages = res.data;
                         var todayImg = res.data[0];
