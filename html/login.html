@@ -75,6 +75,9 @@
                                         <a href="JavaScript:sendEmail()" class="layui-btn layui-btn-primary fly-imActive" data-type="">Send Email</a>
                                     </div>
                                     <div class="fly-sns" data-user="">
+                                        <a href="JavaScript:getEmail()" class="layui-btn layui-btn-primary fly-imActive" data-type="">Get Emails</a>
+                                    </div>
+                                    <div class="fly-sns" data-user="">
                                         <a href="JavaScript:signOut()" class="layui-btn layui-btn-primary fly-imActive" data-type="">Call SignOut</a>
                                     </div>
                                 </div>
@@ -144,7 +147,7 @@
         const msalConfig = {
             auth: {
                 clientId: '9463ab2b-f1cf-4c42-be7c-f87b12871834',
-                redirectUri: 'https://www.axiangblog.cn/html/login.html'
+                redirectUri: 'https://app.axiangblog.com/html/login.html'
             },
             cache: {
                 cacheLocation: "sessionStorage",
@@ -157,7 +160,11 @@
             scopes: [
                 'openid',
                 'profile',
-                'user.read.all'
+                'email',
+                'user.read.all',
+                'mail.send',
+                'files.readwrite.all',
+                'mail.readwrite'
                 //'calendars.read'
             ]
         }
@@ -166,7 +173,10 @@
             scopes: [
                 //'openid',
                 //'profile',
-                'user.read'
+                'user.read',
+                'mail.send',
+                'files.readwrite.all',
+                'mail.readwrite'
                 //'calendars.read'
             ]
         }
@@ -186,7 +196,7 @@
         // Create an options object with the same scopes from the login
         const options =
             new MicrosoftGraph.MSALAuthenticationProviderOptions([
-                'user.read.all', 'mail.send'
+                'user.read.all', 'mail.send', 'files.readwrite.all','mail.readwrite'
             ]);
         // Create an authentication provider for the implicit flow
         const authProvider =
@@ -334,6 +344,12 @@
                 day = "0" + day;
             }
             return (year + "-" + month + "-" + day);
+        }
+
+        async function getEmail() {
+
+            let res = await graphClient.api('/me/messages').get();
+            console.log(res);
         }
 
     </script>
