@@ -14,35 +14,26 @@
     <link rel="stylesheet" type="text/css" href="/res/layui/css/layui.css">
     <link rel="stylesheet" type="text/css" href="/res/css/main.css">
 </head>
-<body ms-controller="postListData">
+<body ms-controller="graphData">
     <div class="header">
         <div class="menu-btn">
             <div class="menu"></div>
         </div>
         <h1 class="logo">
             <a href="../index.html">
-                <span>MYBLOG</span>
+                <span>OneDrive</span>
                 <img src="/res/img/logo.png">
             </a>
         </h1>
         <div class="nav">
-            <a href="posts.html" class="active">文章</a>
-            <a href="whisper.html">微语</a>
-            <a href="leacots.html">留言</a>
-            <a href="album.html">相册</a>
-            <a href="about.html">关于</a>
             <a href="JavaScript:signIn()">登陆</a>
+            <a href="JavaScript:signOut()" data-type="">SignOut</a>
         </div>
         <ul class="layui-nav header-down-nav">
-            <li class="layui-nav-item"><a href="posts.html" class="active">文章</a></li>
-            <li class="layui-nav-item"><a href="whisper.html">微语</a></li>
-            <li class="layui-nav-item"><a href="leacots.html">留言</a></li>
-            <li class="layui-nav-item"><a href="album.html">相册</a></li>
-            <li class="layui-nav-item"><a href="about.html">关于</a></li>
             <li class="layui-nav-item"> <a class="iconfont icon-touxiang layui-hide-xs icon-qq" href="JavaScript:signIn()"></a></li>
         </ul>
         <p class="welcome-text">
-            欢迎{{##guest}}来到<span class="name">{{##name}}</span>的博客~
+            欢迎{{##guest}}来到<span class="name">{{##name}}</span>云盘[Onedrive for Business]~
         </p>
     </div>
 
@@ -64,21 +55,11 @@
                                     </h1>
                                     <p style="padding: 10px 0; color: #5FB878;">访问日期：{{##today}}</p>
                                     <p style="padding: 10px 0; color: #5FB878;">用户标识：{{##uid}}</p>
-
                                     <div class="fly-sns" data-user="">
-                                        <a href="mailto:yang@axiangblog.cn?subject=你好，阿象" class="layui-btn layui-btn-primary fly-imActive" data-type="">联系方式</a>
+                                        <a href="JavaScript:getEmails()" class="layui-btn layui-btn-primary fly-imActive" data-type="">Get Emails</a>
                                     </div>
                                     <div class="fly-sns" data-user="">
-                                        <a href="JavaScript:callAccessToken()" class="layui-btn layui-btn-primary fly-imActive" data-type="">Call AccessToken</a>
-                                    </div>
-                                    <div class="fly-sns" data-user="">
-                                        <a href="JavaScript:sendEmail()" class="layui-btn layui-btn-primary fly-imActive" data-type="">Send Email</a>
-                                    </div>
-                                    <div class="fly-sns" data-user="">
-                                        <a href="JavaScript:getEmail()" class="layui-btn layui-btn-primary fly-imActive" data-type="">Get Emails</a>
-                                    </div>
-                                    <div class="fly-sns" data-user="">
-                                        <a href="JavaScript:signOut()" class="layui-btn layui-btn-primary fly-imActive" data-type="">Call SignOut</a>
+                                        <a href="JavaScript:getFiles()" class="layui-btn layui-btn-primary fly-imActive" data-type="">Get Files</a>
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +67,68 @@
                     </div>
                 </div>
             </div>
-            <div id="demo" style="text-align: center;"></div>
+            <div id="emailTable" style="text-align: center;" ms-if="##mailDataArray.length>0">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">subject</th>
+                            <th scope="col">bodyPreview</th>
+                            <th scope="col">address</th>
+                            <th scope="col">address</th>
+                            <th scope="col">createdDateTime</th>
+                            <th scope="col">webLink</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ms-for="($index,el) in ##mailDataArray | orderBy(##temperatureC)">
+                            <td>{{el.subject}}</td>
+                            <td>{{el.bodyPreview}}</td>
+                            <td>{{el.from.emailAddress.address}}</td>
+                            <td>{{el.toRecipients[0].emailAddress.address}}</td>
+                            <td>{{el.sentDateTime}}</td>
+                            <td><a ms-attr="{'href':el.webLink,'target':'_blank'}">Read</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--分页模块-->
+            <div id="pageBar" style="text-align: center;" ms-if="##mailDataArray.length>0"></div>
+            <div id="fileTable" style="text-align: center;" ms-if="##fileDataArray.length>0">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">name</th>
+                            <th scope="col">folder</th>
+                            <th scope="col">size</th>
+                            <th scope="col">createdDateTime</th>
+                            <th scope="col">preview</th>
+                            <th scope="col">action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ms-for="($index,el) in ##fileDataArray | orderBy(##temperatureC)">
+                            <td style="display:none">{{el.id}}</td>
+                            <td>{{$index}}</td>
+                            <td>{{el.name}}</td>
+                            <td>{{el.folder!=null? el.folder.childCount:el.file.mimeType}}</td>
+                            <td>{{el.size}}</td>
+                            <td>{{el.createdDateTime}}</td>
+                            <td ms-if="el.file!=null&& (el.file.mimeType.indexOf('image')>-1 || el.file.mimeType.indexOf('video')>-1)">
+                                <a ms-attr="{'href':'javascript:previw('+$index+')'}">Get</a>
+                            </td>
+                            <td ms-if="el.file!=null && el.file.mimeType.indexOf('image')>-1==false && el.file.mimeType.indexOf('video')>-1==false">
+                                <a ms-attr="{'href':'javascript:download('+$index+')'}">Download</a>
+                            </td>
+                            <td ms-if="el.folder!=null && el.folder.childCount>0"><a ms-attr="{'href':'javascript:getChilds('+$index+')'}">Child</a></td>
+                            <td ms-if="el.folder!=null && el.folder.childCount==0">/</td>
+                            <td><a ms-attr="{'href':'javascript:backParent('+$index+')'}">Back</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--分页模块-->
+            <div id="pageBar" style="text-align: center;" ms-if="##fileDataArray.length>0"></div>
         </div>
     </div>
 
@@ -95,7 +137,7 @@
             <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
                 <p style="text-align: center;">© 2020 阿象博客.All rights reserved.</p>
                 <p style="text-align: center;color: #3f2863">Azure静态Web+七牛云+Cloudflare</p>
-                <p style="text-align: center;color: #3f2863">苏ICP备15012809号-1</p>
+                <p style="text-align: center;color: #3f2863">苏ICP备15012809号-2</p>
             </div>
         </div>
     </div>
@@ -111,43 +153,51 @@
     <!-- Graph SDK -->
     <script src="/res/js/graph-js-sdk.js" crossorigin="anonymous"></script>
     <script type="text/javascript">
-        var access_token;
-        var id_Token;
-        var viewModel = avalon.define({
-            $id: "postListData",
-            name: "我",
-            guest: "",
-            userName: "",
-            userEmail: "",
-            uid: "",
-            today: getDate()
-        });
-
         $(function () {
             layui.config({
                 base: '/res/js/util/'
             }).use(
-                ['element', 'laypage', 'jquery', 'menu'],
+                ['element', 'laypage', 'jquery', 'menu', 'layer', 'laydate'],
                 function () {
                     //菜单依赖
                     element = layui.element,
                         laypage = layui.laypage,
                         $ = layui.$,
                         menu = layui.menu;
-
+                    layer = layui.layer;
+                    laydate = layui.laydate;
                     menu.init();
                 });
-
-            //获取日期
         });
 
-       
+        var viewModel = avalon.define({
+            $id: "graphData",
+            name: "象叔叔",
+            guest: "",
+            userName: "",
+            userEmail: "",
+            uid: "",
+            today: getDate(),
+            currentPage: 1,
+            pageNumber: 1,
+            pageSize: 10,
+            totalCount: 10,
+            mailDataArray: [],
+            fileDataArray:[],
+            nextLink:""
+        });
 
         //config
         const msalConfig = {
             auth: {
                 clientId: '9463ab2b-f1cf-4c42-be7c-f87b12871834',
-                redirectUri: 'https://app.axiangblog.com/html/login.html'
+                //申请入口 portal.azure.com
+                //》Azure Active Directory
+                //》应用注册,获取 一个clientId
+                //》身份验证 
+                //》单页应用程序 / 重定向 URI，填写本页面
+                redirectUri: 'https://app.axiangblog.cn/html/login.html'
+                //填写本页面
             },
             cache: {
                 cacheLocation: "sessionStorage",
@@ -156,47 +206,36 @@
             }
         };
 
+        //Scope
         const loginRequest = {
             scopes: [
                 'openid',
                 'profile',
                 'email',
-                'user.read.all',
-                'mail.send',
-                'files.readwrite.all',
-                'mail.readwrite'
-                //'calendars.read'
-            ]
-        }
-
-        const accessTokenRequest = {
-            scopes: [
-                //'openid',
-                //'profile',
-                'user.read',
-                'mail.send',
-                'files.readwrite.all',
-                'mail.readwrite'
+                'user.read.all',  
+                'mail.send',       //获取邮箱发送权限
+                'files.readwrite.all', //获取网盘权限
+                'mail.readwrite'    //获取邮箱邮件权限
                 //'calendars.read'
             ]
         }
 
         //Auth
-
         // Create the main MSAL instance
         // configuration parameters are located in config.js
         const msalClient = new Msal.UserAgentApplication(msalConfig);
-
         if (msalClient.getAccount() && !msalClient.isCallback(window.location.hash)) {
             // avoid duplicate code execution on page load in case of iframe and Popup window.
         }
 
-        //graph
-
+        //Graph options
         // Create an options object with the same scopes from the login
         const options =
             new MicrosoftGraph.MSALAuthenticationProviderOptions([
-                'user.read.all', 'mail.send', 'files.readwrite.all','mail.readwrite'
+                'user.read.all',
+                'mail.send',
+                'files.readwrite.all',
+                'mail.readwrite'
             ]);
         // Create an authentication provider for the implicit flow
         const authProvider =
@@ -204,8 +243,124 @@
         // Initialize the Graph client
         const graphClient = MicrosoftGraph.Client.initWithMiddleware({ authProvider });
 
-        
 
+        //Api
+        async function getEmails() {
+            viewModel.fileDataArray = [];
+            let res = await graphClient.api('/me/messages').get();
+            if (res != null && res.value!=null && res.value.length>0) {
+                viewModel.mailDataArray = res.value;
+                if (res['@odata.nextLink']!= null) {
+                    doPageView(viewModel.pageNumber * viewModel.pageSize + 1, viewModel.pageSize, viewModel.pageNumber);
+                    viewModel.nextLink = res['@odata.nextLink'];
+                }else {
+                    doPageView(viewModel.pageNumber * viewModel.pageSize, viewModel.pageSize, viewModel.pageNumber);
+                    viewModel.nextLink = '';
+                }
+            }
+            console.log(res);
+        }
+
+        async function getNextEmails(pageNumber) {
+            viewModel.fileDataArray = [];
+            if (pageNumber > 1 && viewModel.nextLink!='') {
+                let res = await graphClient.api(viewModel.nextLink).get();
+                if (res != null && res.value != null && res.value.length > 0) {
+                    viewModel.mailDataArray = res.value;
+                    if (res['@odata.nextLink'] != null) {
+                        doPageView(viewModel.pageNumber * viewModel.pageSize + 1, viewModel.pageSize, viewModel.pageNumber + 1);
+                        viewModel.nextLink = res['@odata.nextLink'];
+                    } else {
+                        doPageView(viewModel.pageNumber * viewModel.pageSize, viewModel.pageSize, viewModel.pageNumber);
+                        viewModel.nextLink = '';
+                    }
+                }
+                console.log(res);
+            }
+        }
+
+        async function getFiles() {
+            viewModel.mailDataArray = [];
+
+            let res = await graphClient.api('/me/drive/root/children').get();
+            if (res != null && res.value != null && res.value.length > 0) {
+                viewModel.fileDataArray = res.value;
+            }
+            ///me/drive/items/{item-id}/children
+            ///me/drive/items/{item-id}/content
+            //skiptoken=
+            //?$top=5&$skiptoken=
+            //@odata.nextLink
+
+            if (res['@odata.nextLink'] != null) {
+                viewModel.nextLink = res['@odata.nextLink'];
+            } else {
+                viewModel.nextLink = '';
+            }
+            console.log(res);
+        }
+
+        async function previw(index) {
+
+            if (viewModel.fileDataArray[index].file.mimeType.indexOf('image') > -1) {
+                layer.open({
+                    type: 1,
+                    content: '<img src="' +
+                        viewModel.fileDataArray[index]['@microsoft.graph.downloadUrl']
+                        + '" width="800px" height="100%">' //这里content是一个普通的String
+                });
+            }
+
+            if (viewModel.fileDataArray[index].file.mimeType.indexOf('video') > -1) {
+
+                layer.open({
+                    type: 1,
+                    content: '<video src="' +
+                        viewModel.fileDataArray[index]['@microsoft.graph.downloadUrl']
+                        + '" width="600px" height="400px" controls="controls" crossorigin="anonymous"></video>"'
+                });
+            }
+        }
+
+        async function download(index) {
+            window.location.href = viewModel.fileDataArray[index]['@microsoft.graph.downloadUrl'];
+        }
+
+        async function getChilds(index) {
+            viewModel.mailDataArray = [];
+
+            let res = await graphClient.api('me/drive/items/' + viewModel.fileDataArray[index].id+'/children').get();
+            if (res != null && res.value != null && res.value.length > 0) {
+                viewModel.fileDataArray = res.value;
+            }
+
+            if (res['@odata.nextLink'] != null) {
+                viewModel.nextLink = res['@odata.nextLink'];
+            } else {
+                viewModel.nextLink = '';
+            }
+            console.log(res);
+        }
+
+        async function backParent(index) {
+
+            let res = await graphClient.api('me/drive/items/' + viewModel.fileDataArray[index].parentReference.id).get();
+            if (res != null && res.id != null && res.id!='' && res.name!='root') {
+                //01LOLRCNQX6DQ2YFC4EJBYRKVWD7OW6CJZ
+                //01LOLRCNQX6DQ2YFC4EJBYRKVWD7OW6CJZ
+                res = await graphClient.api('me/drive/items/' + res.parentReference.id + '/children').get();
+                if (res != null && res.value != null && res.value.length > 0) {
+                    viewModel.fileDataArray = res.value;
+                }
+                if (res['@odata.nextLink'] != null) {
+                    viewModel.nextLink = res['@odata.nextLink'];
+                } else {
+                    viewModel.nextLink = '';
+                }
+            }
+        }
+
+        //Login and Logout
         async function signIn() {
             // Login
             try {
@@ -231,107 +386,13 @@
             }
         }
 
-        async function callAccessToken() {
-            //Call AccessToken
-            try {
-                await msalClient.acquireTokenSilent(accessTokenRequest).then(function (accessTokenResponse) {
-                    // Acquire token silent success
-                    // Call API with token
-                    let accessToken = accessTokenResponse.accessToken;
-                    console.log(accessTokenResponse);
-                    access_token = accessToken;
-                    if (access_token != null && access_token != '') {
-                        callWebApi(access_token);
-                    }
-                }).catch(function (error) {
-                    //Acquire token silent failure, and send an interactive request
-                    console.log(error);
-                    //if (error.errorMessage.indexOf("interaction_required") !== -1) {
-                        userAgentApplication.acquireTokenPopup(accessTokenRequest).then(function (accessTokenResponse) {
-                            // Acquire token interactive success
-                            let accessToken = accessTokenResponse.accessToken;
-                            console.log(accessTokenResponse);
-                            access_token = accessToken;
-                            if (access_token != null && access_token != '') {
-                                callWebApi(access_token);
-                            }
-                        }).catch(function (error) {
-                            // Acquire token interactive failure
-                            console.log(error);
-                        });
-                   // }
-                    console.log(error);
-                });
-
-            } catch (error) {
-
-            }
-            
-        }
-
-        // call rest api
-        function callWebApi(access_token) {
-            var headers = new Headers();
-            var bearer = "Bearer " + access_token;
-            headers.append("Authorization", bearer);
-            var options = {
-                method: "GET",
-                headers: headers
-            };
-            var graphEndpoint = "https://graph.microsoft.com/v1.0/me";
-
-            fetch(graphEndpoint, options)
-                .then(function (response) {
-                    //do something with response  
-
-                    if (response.status == 200) {
-                        var data = response.json();
-                        data.then(function (userinfo) {
-                            //Print the JSON string                        
-                            console.log(userinfo);
-                        })
-                    }
-                });
-        }
-
-       
-
-        async function sendEmail() {
-
-            const sendMail = {
-                message: {
-                    subject: "JS调用邮件发送服务",
-                    body: {
-                        contentType: "HTML",
-                        content: "调用了microsoft graph rest api 1.0邮件接口服务"
-                    },
-                    toRecipients: [
-                        {
-                            emailAddress: {
-                                address: "yang.yx91@live.cn"
-                            }
-                        }
-                    ],
-                    ccRecipients: [
-                        {
-                            emailAddress: {
-                                address: "yang@axiangblog.cn"
-                            }
-                        }
-                    ]
-                },
-                saveToSentItems: "false"
-            };
-
-            let res = await graphClient.api('/me/sendMail')
-                .post(sendMail);
-            console.log(res);
-        }
-
-        function signOut() {
+        //logout
+        async function signOut() {
             msalClient.logout();
         }
 
+        //工具
+        
         function getDate() {
             var date = new Date();
             var year = date.getFullYear();
@@ -346,10 +407,174 @@
             return (year + "-" + month + "-" + day);
         }
 
-        async function getEmail() {
+        //分页渲染页面数据
+        function doPageView(totalCount, pageSize, pageNumber) {
+            if (totalCount < pageSize) {
+                //分页容器
+                laypage.render({
+                    elem: 'pageBar',
+                    count: pageSize * pageNumber, //数据总数，从服务端得到
+                    limit: pageSize,
+                    curr: pageNumber,
+                    jump: function (obj, first) {
+                        //obj包含了当前分页的所有参数，比如：
+                        //console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                        //console.log(obj.limit); //得到每页显示的条数
+                        //首次不执行
+                        if (!first) {
+                            jumpTargetPage(obj.curr, obj.limit);
+                        }
+                    }
+                });
+            }
+            else {
+                //分页容器
+                laypage.render({
+                    elem: 'pageBar',
+                    count: pageSize * pageNumber + 1, //数据总数，从服务端得到
+                    limit: pageSize,
+                    curr: pageNumber,
+                    jump: function (obj, first) {
+                        //obj包含了当前分页的所有参数，比如：
+                        //console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                        //console.log(obj.limit); //得到每页显示的条数
+                        //首次不执行
+                        if (!first) {
+                            jumpTargetPage(obj.curr, obj.limit);
+                        }
+                    }
+                });
+            }
 
-            let res = await graphClient.api('/me/messages').get();
-            console.log(res);
+        }
+
+        //页面跳转
+        function jumpTargetPage(pageNumber, pageSize) {
+            viewModel.pageNumber = pageNumber;
+            viewModel.pageSize = pageSize;
+            //console.log(pageNumber, pageSize);
+            if (pageNumber>1) {
+
+                getNextEmails(pageNumber);
+
+            } else {
+
+                getEmails();
+                
+            }
+            
+        }
+
+        //注释
+
+        //var access_token;
+        //const accessTokenRequest = {
+        //    scopes: [
+        //        //'openid',
+        //        //'profile',
+        //        'user.read',
+        //        'mail.send',
+        //        'files.readwrite.all',
+        //        'mail.readwrite'
+        //        //'calendars.read'
+        //    ]
+        //}
+
+        //async function callAccessToken() {
+        //    //Call AccessToken
+        //    try {
+        //        await msalClient.acquireTokenSilent(accessTokenRequest).then(function (accessTokenResponse) {
+        //            // Acquire token silent success
+        //            // Call API with token
+        //            let accessToken = accessTokenResponse.accessToken;
+        //            console.log(accessTokenResponse);
+        //            access_token = accessToken;
+        //            if (access_token != null && access_token != '') {
+        //                callWebApi(access_token);
+        //            }
+        //        }).catch(function (error) {
+        //            //Acquire token silent failure, and send an interactive request
+        //            console.log(error);
+        //            //if (error.errorMessage.indexOf("interaction_required") !== -1) {
+        //                userAgentApplication.acquireTokenPopup(accessTokenRequest).then(function (accessTokenResponse) {
+        //                    // Acquire token interactive success
+        //                    let accessToken = accessTokenResponse.accessToken;
+        //                    console.log(accessTokenResponse);
+        //                    access_token = accessToken;
+        //                    if (access_token != null && access_token != '') {
+        //                        callWebApi(access_token);
+        //                    }
+        //                }).catch(function (error) {
+        //                    // Acquire token interactive failure
+        //                    console.log(error);
+        //                });
+        //           // }
+        //            console.log(error);
+        //        });
+
+        //    } catch (error) {
+
+        //    }
+            
+        //}
+
+        //// call rest api
+        //function callWebApi(access_token) {
+        //    var headers = new Headers();
+        //    var bearer = "Bearer " + access_token;
+        //    headers.append("Authorization", bearer);
+        //    var options = {
+        //        method: "GET",
+        //        headers: headers
+        //    };
+        //    var graphEndpoint = "https://graph.microsoft.com/v1.0/me";
+
+        //    fetch(graphEndpoint, options)
+        //        .then(function (response) {
+        //            //do something with response  
+
+        //            if (response.status == 200) {
+        //                var data = response.json();
+        //                data.then(function (userinfo) {
+        //                    //Print the JSON string                        
+        //                    console.log(userinfo);
+        //                })
+        //            }
+        //        });
+        //}
+
+       
+
+        async function sendEmail() {
+
+            //const sendMail = {
+            //    message: {
+            //        subject: "JS调用邮件发送服务",
+            //        body: {
+            //            contentType: "HTML",
+            //            content: "调用了microsoft graph rest api 1.0邮件接口服务"
+            //        },
+            //        toRecipients: [
+            //            {
+            //                emailAddress: {
+            //                    address: ""  收件人邮箱
+            //                }
+            //            }
+            //        ],
+            //        ccRecipients: [
+            //            {
+            //                emailAddress: {
+            //                    address: ""  抄送人邮箱
+            //                }
+            //            }
+            //        ]
+            //    },
+            //    saveToSentItems: "false"
+            //};
+
+            //let res = await graphClient.api('/me/sendMail')
+            //    .post(sendMail);
+            //console.log(res);
         }
 
     </script>
