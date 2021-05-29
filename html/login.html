@@ -307,7 +307,7 @@
                     type: 1,
                     content: '<img src="' +
                         viewModel.fileDataArray[index]['@microsoft.graph.downloadUrl']
-                        + '" width="800px" height="100%">' //这里content是一个普通的String
+                        + '" width="800px" height="600px">' //这里content是一个普通的String
                 });
             }
 
@@ -317,7 +317,17 @@
                     type: 1,
                     content: '<video src="' +
                         viewModel.fileDataArray[index]['@microsoft.graph.downloadUrl']
-                        + '" width="600px" height="400px" controls="controls" crossorigin="anonymous"></video>"'
+                        + '" width="800px" height="600px" controls="controls" crossorigin="anonymous"></video>"'
+                });
+            }
+
+            if (viewModel.fileDataArray[index].file.mimeType.indexOf('audio') > -1) {
+
+                layer.open({
+                    type: 1,
+                    content: '<audio src="'
+                        + viewModel.fileDataArray[index]['@microsoft.graph.downloadUrl']
+                        + '" controls="controls" crossorigin="anonymous" style="width:600px;height:200px"></audio>'
                 });
             }
         }
