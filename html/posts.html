@@ -170,7 +170,7 @@
         function queryPostTypes() {
             layer.load(2);
             jQuery.ajax({
-                url: 'https://openapi.axiangblog.cn/wxPostTypeApi/v1/getWxPostTypes',
+                url: 'https://api.axiangblog.cn/getWxPostTypes',
                 type: 'Post',
                 contentType: 'application/json',
                 data: JSON.stringify({
@@ -196,7 +196,7 @@
         function queryPagePosts() {
             layer.load(2);
             jQuery.ajax({
-                url: 'https://openapi.axiangblog.cn/wxPostApi/v1/getWxPosts',
+                url: 'https://api.axiangblog.cn/getWxPosts',
                 type: 'Post',
                 contentType: 'application/json',
                 data: JSON.stringify({
