@@ -60,13 +60,13 @@
 
     <div class="content whisper-content">
         <div class="cont w1000">
-            <div class="title" >
-                <span class="layui-breadcrumb" lay-separator="|" >
+            <div class="title">
+                <span class="layui-breadcrumb" lay-separator="|">
                     <a href="javascript:getPostsByTagName({{el.PostType}});" ms-for="($index,el) in ##postTypeArray">{{el.PostType}}</a>
                     <span lay-separator="" ms-for="($index,el) in ##postTypeArray">|</span>
                     <!--<a href="javascript:getPostsByTagName('云开发');" class="active">云开发</a>
-    <a href="javascript:getPostsByTagName('酷软');">酷软</a>
-    <a href="javascript:getPostsByTagName('游戏');">游戏</a>-->
+                    <a href="javascript:getPostsByTagName('酷软');">酷软</a>
+                    <a href="javascript:getPostsByTagName('游戏');">游戏</a>-->
                 </span>
             </div>
             <!--文章列表-->
@@ -77,7 +77,10 @@
                             <div class="layui-row">
                                 <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
                                     <div class="whisper-title">
-                                        <i class="layui-icon layui-icon-date"></i><span class="hour">{{el.Title}}</span><span class="date">{{el.PostDate}}</span>
+                                        <i class="layui-icon layui-icon-date"></i>
+                                        <span class="hour">{{el.Title}}</span>
+                                        <span class="date">{{el.PostDate}}</span>
+                                        <span style="margin-left:10px"><a class="go-icon" ms-click="speechRead(el)">朗读</a></span>
                                     </div>
                                     <p class="text-cont">{{el.Description}}</p>
                                     <div class="img-box"><img ms-attr="{src:el.Thumbnail}"></div>
@@ -131,18 +134,19 @@
     <script src="/res/js/avalon/avalon.min.js"></script>
     <script src="/res/js/jquery/jquery.min.js"></script>
     <script src="/res/js/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/res/js/microsoft.cognitiveservices.speech.sdk.bundle-min.js"></script>
     <script type="text/javascript">
         $(function () {
             layui.config({
                 base: '/res/js/util/'
             }).use(
-                ['element', 'laypage', 'jquery', 'menu', 'layer','laydate'],
+                ['element', 'laypage', 'jquery', 'menu', 'layer', 'laydate'],
                 function () {
                     //菜单依赖
                     element = layui.element,
-                    laypage = layui.laypage,
-                    $ = layui.$,
-                    menu = layui.menu;
+                        laypage = layui.laypage,
+                        $ = layui.$,
+                        menu = layui.menu;
                     layer = layui.layer;
                     laydate = layui.laydate;
                     menu.init();
@@ -152,13 +156,21 @@
         var viewModel = avalon.define({
             $id: "postListData",
             name: "象叔叔",
-            postTypeArray:[],
+            postTypeArray: [],
             dataArray: [],
             temperatureC: 0,
             currentPage: 1,
             pageNumber: 1,
             pageSize: 10,
-            totalCount: 10
+            totalCount: 10,
+            speechRead: function (e) {
+                //console.log(e.Content);
+                var el = document.createElement("div");
+                el.innerHTML = e.Content;
+                //console.log(el.innerText);
+                var text = e.Title + e.PostDate + el.innerText + ",谢谢收听";
+                synthesizeSpeech(text);
+            }
         });
 
         setTimeout(function () {
@@ -240,8 +252,7 @@
                     }
                 });
             }
-            else
-            {
+            else {
                 //分页容器
                 laypage.render({
                     elem: 'pageBar',
@@ -259,7 +270,7 @@
                     }
                 });
             }
-            
+
         }
 
         //页面跳转
@@ -272,6 +283,28 @@
 
         function getPostsByTagName(name) {
             console.log("当前Post分类名称:", name);
+        }
+
+
+
+        function synthesizeSpeech(text) {
+            var speechConfig = SpeechSDK.SpeechConfig.fromSubscription("f59840607fb4472bbab3e756ea4ce739", "southeastasia");
+            speechConfig.speechSynthesisVoiceName = "zh-CN-XiaoxiaoNeural";
+            var audioConfig = SpeechSDK.AudioConfig.fromDefaultSpeakerOutput();
+
+            var synthesizer = new SpeechSDK.SpeechSynthesizer(speechConfig, audioConfig);
+            synthesizer.speakTextAsync(
+                text,
+                result => {
+                    if (result) {
+                        synthesizer.close();
+                        return result.audioData;
+                    }
+                },
+                error => {
+                    console.log(error);
+                    synthesizer.close();
+                });
         }
     </script>
 </body>
